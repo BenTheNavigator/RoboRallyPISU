@@ -11,4 +11,4 @@ target/
 *.iml
 .idea/
 *.DS_Store
- hello js
+ .vscode/
