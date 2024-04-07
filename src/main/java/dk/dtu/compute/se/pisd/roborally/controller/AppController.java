@@ -25,6 +25,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
+import dk.dtu.compute.se.pisd.roborally.dal.GameInDB;
 import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
@@ -38,6 +39,7 @@ import javafx.scene.control.ChoiceDialog;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -128,13 +130,32 @@ public class AppController implements Observer {
     }
 
     /**
-     * A method to load a game
+     * A method to load a game. Fetches saved games from database and puts them in reverse order.
+     * Then creates Dialog boxes where user can choose which save to load into. 
+     * Afterwards it loads game onto board, creates new gamecontroller and add players to the board.
+     * Lastly the View is created.
+     * 
+     * @author s23544
      */
     public void loadGame() {
-        // XXX needs to be implememted eventually
-        // for now, we just create a new game
-        if (gameController == null) {
-            newGame();
+        List<GameInDB> list = repository.getGames();
+        Collections.reverse(list);
+        ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(list.get(0), list);
+        dialog.setTitle("Load Game");
+        dialog.setHeaderText("Select save to load");
+        Optional<GameInDB> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            int ID = result.get().id;
+            Board board = repository.loadGameFromDB(ID);
+            gameController = new GameController(board);
+
+            for (int i = 0; i < board.getPlayersNumber(); i++) {
+                Player player = board.getPlayer(i);
+                board.addPlayer(player);
+                player.setSpace(board.getPlayer(i).getSpace());
+            }
+            roboRally.createBoardView(gameController);
         }
     }
 
