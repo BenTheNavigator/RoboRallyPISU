@@ -480,29 +480,17 @@ class Repository implements IRepository {
 	}
 
 	private void loadCardFieldsFromDB(Board game) throws SQLException {
-		PreparedStatement ps = getSelectPlayersASCStatement();
+		PreparedStatement ps = getSelectCardFieldsASCStatement();
 		ps.setInt(1, game.getGameId());
 
 		ResultSet rs = ps.executeQuery();
-		int i = 0;
 		while (rs.next()) {
-			int playerId = rs.getInt(PLAYER_PLAYERID);
-			if (i++ == playerId) {
-				// TODO this should be more defensive
-				String name = rs.getString(PLAYER_NAME);
-				String colour = rs.getString(PLAYER_COLOUR);
-				Player player = new Player(game, colour ,name);
-				game.addPlayer(player);
+			int playerId = rs.getInt(CARD_PLAYERID);
+			int handPosition = rs.getInt(CARD_HANDPOSITION);
+			String cardType = rs.getString(CARD_TYPE);
 
-				int x = rs.getInt(PLAYER_POSITION_X);
-				int y = rs.getInt(PLAYER_POSITION_Y);
-				player.setSpace(game.getSpace(x,y));
-				int heading = rs.getInt(PLAYER_HEADING);
-				player.setHeading(Heading.values()[heading]);
-			} else {
-				// TODO error handling
-				System.err.println("Game in DB does not have a player with id " + i +"!");
-			}
+			Player player = game.getPlayer(playerId);
+
 		}
 		rs.close();
 	}
@@ -542,6 +530,6 @@ class Repository implements IRepository {
 				e.printStackTrace();
 			}
 		}
-		return select_players_asc_stmt;
+		return select_card_fields_asc_stmt;
 	}
 }
