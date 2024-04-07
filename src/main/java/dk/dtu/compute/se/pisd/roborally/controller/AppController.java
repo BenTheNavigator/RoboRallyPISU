@@ -25,7 +25,8 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
-
+import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
+import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
@@ -75,6 +76,8 @@ public class AppController implements Observer {
      * @param roboRally the game
      */
 
+    IRepository repository = RepositoryAccess.getRepository();
+
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
@@ -118,10 +121,10 @@ public class AppController implements Observer {
     }
 
     /**
-     * A method to save the game
+     * Here we save the game in the database with a game ID. This can be used to load into it later.
      */
     public void saveGame() {
-        // XXX needs to be implemented eventually
+        repository.updateGameInDB(gameController.board);
     }
 
     /**
