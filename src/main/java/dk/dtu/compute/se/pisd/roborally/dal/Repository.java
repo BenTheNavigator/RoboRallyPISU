@@ -239,9 +239,9 @@ class Repository implements IRepository {
 				return null;
 			}
 
-			/* TODO V4a: this method needs to be implemented first
+			//TODO V4a: this method needs to be implemented first
 			loadCardFieldsFromDB(game);
-			*/
+
 
 			return game;
 		} catch (SQLException e) {
