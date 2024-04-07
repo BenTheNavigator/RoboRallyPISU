@@ -110,9 +110,9 @@ class Repository implements IRepository {
 				// statement.close();
 
 				createPlayersInDB(game);
-				/* TODO V4a: this method needs to be implemented first
+				//TODO V4a: this method needs to be implemented first
 				createCardFieldsInDB(game);
-				 */
+
 
 				// since current player is a foreign key, it can only be
 				// inserted after the players are created, since MySQL does
