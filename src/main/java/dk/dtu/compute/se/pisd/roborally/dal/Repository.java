@@ -490,6 +490,17 @@ class Repository implements IRepository {
 			String cardType = rs.getString(CARD_TYPE);
 
 			Player player = game.getPlayer(playerId);
+			if (player != null){
+				Command command = convertStringToCommand(cardType);
+				if (command != null){
+					CommandCard card = new CommandCard(command);
+					CommandCardField cardField = player.getCardField(handPosition);
+					if (cardField != null){
+						cardField.setCard(card);
+					}
+				}
+
+			}
 
 		}
 		rs.close();
@@ -531,5 +542,14 @@ class Repository implements IRepository {
 			}
 		}
 		return select_card_fields_asc_stmt;
+	}
+
+	private Command convertStringToCommand (String commandString){
+		for (Command command : Command.values()){
+			if (command.displayName.equals(commandString)){
+				return command;
+			}
+		}
+		return null;
 	}
 }
