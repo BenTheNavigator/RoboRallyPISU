@@ -175,9 +175,9 @@ class Repository implements IRepository {
 			rs.close();
 
 			updatePlayersInDB(game);
-			/* TODO V4a: this method needs to be implemented first
+			//TODO V4a: this method needs to be implemented first
 			updateCardFieldsInDB(game);
-			*/
+
 
             connection.commit();
             connection.setAutoCommit(true);
@@ -502,6 +502,23 @@ class Repository implements IRepository {
 
 			}
 
+		}
+		rs.close();
+	}
+
+	private void updateCardFieldsInDB(Board game) throws SQLException {
+		PreparedStatement ps = getSelectCardFieldsStatementU();
+		ps.setInt(1, game.getGameId());
+
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			int playerId = rs.getInt(CARD_PLAYERID);
+			int handPosition = rs.getInt(CARD_HANDPOSITION);
+			// TODO should be more defensive
+			Player player = game.getPlayer(playerId);
+
+			rs.updateString(CARD_TYPE, player.getCardField(handPosition).getCard().getName());
+			rs.updateRow();
 		}
 		rs.close();
 	}
