@@ -22,10 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.dal;
 
 import dk.dtu.compute.se.pisd.roborally.controller.BoardFactory;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Phase;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -450,6 +447,56 @@ class Repository implements IRepository {
 		}
 		return select_games_stmt;
 	}
+	private void createCardFieldsInDB(Board game) throws SQLException {
+		// TODO code should be more defensive
+		PreparedStatement ps = getSelectCardFieldsStatementU();
+		ps.setInt(1,game.getGameId());
+
+		for (int i = 0; i < game.getPlayersNumber(); i++){
+			int playerID = i;
+			ps.setInt(2, playerID);
+		}
+
+		ResultSet rs = ps.executeQuery();
+		for (int j = 0; j < game.getPlayersNumber(); j++) {
+			Player player = game.getPlayer(j);
+			for (int k = 0; k < Player.NO_CARDS; k++){
+				CommandCardField cardField = player.getCardField(k);
+				CommandCard card = cardField.getCard();
+				if (card != null) {
+					rs.moveToInsertRow();
+					rs.updateInt(CARD_GAMEID, game.getGameId());
+					rs.updateInt(CARD_PLAYERID, j);
+					rs.updateInt(CARD_HANDPOSITION,k);
+					rs.updateString(CARD_TYPE, card.getName());
+					rs.insertRow();
+				}
+
+			}
+
+		}
+
+		rs.close();
+	}
+	private static final String SQL_SELECT_CARD_FIELDS =
+			"SELECT * FROM Card WHERE gameID = ? AND playerID = ?";
+
+	private PreparedStatement select_card_fields_stmt = null;
+
+	private PreparedStatement getSelectCardFieldsStatementU() {
+		if (select_card_fields_stmt == null) {
+			Connection connection = connector.getConnection();
+			try {
+				select_card_fields_stmt = connection.prepareStatement(
+						SQL_SELECT_CARD_FIELDS);
+			} catch (SQLException e) {
+				// TODO error handling
+				e.printStackTrace();
+			}
+		}
+		return select_card_fields_stmt;
+	}
+
 
 
 
