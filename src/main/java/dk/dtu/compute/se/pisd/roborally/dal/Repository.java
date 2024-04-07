@@ -478,6 +478,34 @@ class Repository implements IRepository {
 
 		rs.close();
 	}
+
+	private void loadCardFieldsFromDB(Board game) throws SQLException {
+		PreparedStatement ps = getSelectPlayersASCStatement();
+		ps.setInt(1, game.getGameId());
+
+		ResultSet rs = ps.executeQuery();
+		int i = 0;
+		while (rs.next()) {
+			int playerId = rs.getInt(PLAYER_PLAYERID);
+			if (i++ == playerId) {
+				// TODO this should be more defensive
+				String name = rs.getString(PLAYER_NAME);
+				String colour = rs.getString(PLAYER_COLOUR);
+				Player player = new Player(game, colour ,name);
+				game.addPlayer(player);
+
+				int x = rs.getInt(PLAYER_POSITION_X);
+				int y = rs.getInt(PLAYER_POSITION_Y);
+				player.setSpace(game.getSpace(x,y));
+				int heading = rs.getInt(PLAYER_HEADING);
+				player.setHeading(Heading.values()[heading]);
+			} else {
+				// TODO error handling
+				System.err.println("Game in DB does not have a player with id " + i +"!");
+			}
+		}
+		rs.close();
+	}
 	private static final String SQL_SELECT_CARD_FIELDS =
 			"SELECT * FROM Card WHERE gameID = ? AND playerID = ?";
 
@@ -497,7 +525,23 @@ class Repository implements IRepository {
 		return select_card_fields_stmt;
 	}
 
+	private static final String SQL_SELECT_CARD_FIELDS_ASC =
+			"SELECT * FROM Card WHERE gameID = ? AND playerID = ? ORDER BY handPosition ASC";
 
+	private PreparedStatement select_card_fields_asc_stmt = null;
 
-
+	private PreparedStatement getSelectCardFieldsASCStatement() {
+		if (select_card_fields_asc_stmt == null) {
+			Connection connection = connector.getConnection();
+			try {
+				// This statement does not need to be updatable
+				select_card_fields_asc_stmt = connection.prepareStatement(
+						SQL_SELECT_CARD_FIELDS_ASC);
+			} catch (SQLException e) {
+				// TODO error handling
+				e.printStackTrace();
+			}
+		}
+		return select_players_asc_stmt;
+	}
 }
