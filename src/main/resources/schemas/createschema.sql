@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Player (
 CREATE TABLE IF NOT EXISTS Card (
     gameID int NOT NULL,
     playerID tinyint NOT NULL,
-    handPosition int NOT NULL,
+    handPosition tinyint NOT NULL,
 
     cardType varchar(255),
 
