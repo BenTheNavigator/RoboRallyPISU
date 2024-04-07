@@ -545,11 +545,27 @@ class Repository implements IRepository {
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			int playerId = rs.getInt(CARD_PLAYERID);
-			int handPosition = rs.getInt(CARD_HANDPOSITION);
+			int position = rs.getInt(CARD_POSITION);
+			int cardType = rs.getInt(CARD_TYPE);
+
+			CommandCardField cardField = null;
 			// TODO should be more defensive
 			Player player = game.getPlayer(playerId);
+			if(cardType==CARD_TYPE_PROGRAM){
+				cardField = player.getProgramField(position);
+			} else if (cardType==CARD_TYPE_HAND){
+				cardField = player.getCardField(position);
+			}
 
-			rs.updateString(CARD_TYPE, player.getCardField(handPosition).getCard().getName());
+			if (cardField!=null){
+				rs.updateBoolean(CARD_VISIBLE,cardField.isVisible());
+				CommandCard card = cardField.getCard();
+				if (card!=null){
+					rs.updateInt(CARD_COMMAND, card.command.ordinal());
+				} else {
+					rs.updateNull(CARD_COMMAND);
+				}
+			}
 			rs.updateRow();
 		}
 		rs.close();
