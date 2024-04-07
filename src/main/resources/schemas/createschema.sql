@@ -29,16 +29,18 @@ CREATE TABLE IF NOT EXISTS Player (
   FOREIGN KEY (gameID) REFERENCES Game(gameID)
 );;
 
-CREATE TABLE IF NOT EXISTS Card (
+CREATE TABLE IF NOT EXISTS Cardfield (
     gameID int NOT NULL,
     playerID tinyint NOT NULL,
-    handPosition tinyint NOT NULL,
+    type tinyint NOT NULL
+    position tinyint NOT NULL,
 
-    cardType varchar(255),
+    isVisible BIT,
+    command tinyint,
 
-    PRIMARY KEY (gameID, playerID, handPosition),
+    PRIMARY KEY (gameID, playerID, type, position),
     FOREIGN KEY (gameID) REFERENCES Game(gameID),
-    FOREIGN KEY (playerID) REFERENCES Player(playerID)
+    FOREIGN KEY (gameID, playerID) REFERENCES Player(gameID, playerID)
 );;
 
 )
