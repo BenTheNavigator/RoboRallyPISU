@@ -64,6 +64,14 @@ class Repository implements IRepository {
 
 	private static final String PLAYER_HEADING = "heading";
 
+	private static final String CARD_GAMEID = "gameID";
+
+	private static final String CARD_PLAYERID = "playerID";
+
+	private static final String CARD_HANDPOSITION = "handPosition";
+
+	private static final String CARD_TYPE = "type";
+
 	private Connector connector;
 	
 	Repository(Connector connector){
