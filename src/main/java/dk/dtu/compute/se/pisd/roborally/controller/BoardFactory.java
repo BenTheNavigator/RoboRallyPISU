@@ -91,6 +91,31 @@ public class BoardFactory {
         rotationAction.setRotation(2);
         space.getActions().add(rotationAction);
 
+        space = board.getSpace(1, 4);
+        Checkpoint checkpoint1 = new Checkpoint();
+        checkpoint1.setCheckpointNumber(1);
+        space.getActions().add(checkpoint1); 
+
+        space = board.getSpace(3, 5);
+        Checkpoint checkpoint2 = new Checkpoint();
+        checkpoint1.setCheckpointNumber(2);
+        space.getActions().add(checkpoint2); 
+
+        space = board.getSpace(0, 2);
+        Checkpoint checkpoint3 = new Checkpoint();
+        checkpoint1.setCheckpointNumber(3);
+        space.getActions().add(checkpoint3); 
+
+        space = board.getSpace(5, 2);
+        Checkpoint checkpoint4 = new Checkpoint();
+        checkpoint1.setCheckpointNumber(4);
+        space.getActions().add(checkpoint4); 
+
+        space = board.getSpace(3, 7);
+        Checkpoint checkpoint5 = new Checkpoint();
+        checkpoint1.setCheckpointNumber(5);
+        space.getActions().add(checkpoint5); 
+
         return board;
     }
 

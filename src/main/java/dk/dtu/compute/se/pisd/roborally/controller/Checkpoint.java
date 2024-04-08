@@ -16,6 +16,15 @@ public class Checkpoint extends FieldAction {
         return checkpointNumber;
     }
 
+    /**
+     * A setter method for the checkpointnumber.
+     * @param checkpointNumber is the int value of the checkpointNumber you wish to set.
+     * @author s235444
+     */
+
+    public void setCheckpointNumber (int checkpointNumber) {
+        this.checkpointNumber = checkpointNumber;
+    }
 
     /**
      * A method to check if player checkpoints are correct and in accordance with checkpoint order. 
