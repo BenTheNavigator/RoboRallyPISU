@@ -86,7 +86,7 @@ public class BoardFactory {
         rotationAction.setRotation(1);
         space.getActions().add(rotationAction);
 
-        space = board.getSpace(3,1);
+        space = board.getSpace(3,2);
         rotationAction = new Rotator();
         rotationAction.setRotation(2);
         space.getActions().add(rotationAction);
