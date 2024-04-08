@@ -116,6 +116,10 @@ public class BoardFactory {
         checkpoint1.setCheckpointNumber(5);
         space.getActions().add(checkpoint5); 
 
+        space = board.getSpace(4,4);
+        Trench trench = new Trench();
+        space.getActions().add(trench);
+
         return board;
     }
 

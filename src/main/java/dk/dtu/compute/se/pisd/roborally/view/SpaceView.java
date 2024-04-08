@@ -25,6 +25,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.controller.Rotator;
+import dk.dtu.compute.se.pisd.roborally.controller.Trench;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -227,8 +228,27 @@ public class SpaceView extends StackPane implements ViewObserver {
 
                             break;
                     }
+
+                }
+                /**
+                 * @author s235458
+                 */
+                if (action instanceof Trench) {
+                    Trench trench = (Trench) action;
+
+
+                    Rectangle trenchSquare = new Rectangle(SPACE_WIDTH, SPACE_HEIGHT);
+                    //trenchSquare.setTranslateX(SPACE_WIDTH / 2.0);
+                    //trenchSquare.setTranslateY(SPACE_HEIGHT / 2.0);
+
+
+                    pane.getChildren().add(trenchSquare);
+
+
+                    trenchSquare.setFill(Color.CYAN);
                 }
             }
+
 
 
             this.getChildren().add(pane);
