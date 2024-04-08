@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
+import static dk.dtu.compute.se.pisd.roborally.model.Phase.WINNER;
 
 /**
  * The board associated with RoboRally
@@ -320,8 +321,9 @@ public class Board extends Subject {
 
         // XXX: V1 add the move count to the status message
         // XXX: V2 changed the status so that it shows the phase, the current player and the number of steps
-        return "Current phase: " + getPhase() +  "  Current player: " + getCurrentPlayer().getName()
-                + "  Number of steps: " + getStep() + "  Number of moves: " + getCount();
+
+        return "Phase: " + getPhase() +  "  Player: " + getCurrentPlayer().getName() + "  Checkpoints: " + getCurrentPlayer().getCheckpointCounter()
+                + "  Steps: " + getStep() + "  Moves: " + getCount();
     }
 
     /**

@@ -108,7 +108,7 @@ public class Player extends Subject {
 
     /**
      * A getmethod for the player checkpointCounter
-     * @return
+     * @return int checkpointCounter
      */
     public int getCheckpointCounter () {
         return checkpointCounter;
