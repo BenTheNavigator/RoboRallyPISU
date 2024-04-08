@@ -19,8 +19,8 @@ public class Checkpoint extends FieldAction {
 
     /**
      * A method to check if player checkpoints are correct and in accordance with checkpoint order. 
-     * If they are, then the players checkpointCounter is increased to the checkpointNumber of the Checkpoint
-     * It might be a good idea to add code here to check if the final checkpoint has been reached
+     * If they are, then the players checkpointCounter is increased to the checkpointNumber of the Checkpoint.
+     * It checks if the final checkpoints has been reached, and if that is the case the phase is changed to winner and the status is updated.
      * @s235444
      */
     @Override

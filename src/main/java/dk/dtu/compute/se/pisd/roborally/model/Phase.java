@@ -22,10 +22,11 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 /**
- * The phases in RoboRally
+ * The phases in RoboRally. 
+ * Added the Winner phase. 
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author s235444
  */
 public enum Phase {
     INITIALISATION, PROGRAMMING, ACTIVATION, PLAYER_INTERACTION, WINNER
