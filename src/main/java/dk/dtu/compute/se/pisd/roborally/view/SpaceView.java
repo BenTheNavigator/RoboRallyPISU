@@ -208,7 +208,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     rotatorText.setFill(Color.BLACK);
                     rotatorText.setTextAlignment(TextAlignment.CENTER);
                     rotatorText.setX(rotatorCircle.getCenterX() - rotatorText.getBoundsInLocal().getWidth() / 2);
-                    rotatorText.setY(rotatorCircle.getCenterY() + rotatorText.getBoundsInLocal().getHeight() / 4);
+                    rotatorText.setY(rotatorCircle.getCenterY() + rotatorText.getBoundsInLocal().getHeight() / 2);
 
                     pane.getChildren().add(rotatorText);
 
