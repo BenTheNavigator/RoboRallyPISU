@@ -24,6 +24,7 @@ package dk.dtu.compute.se.pisd.roborally.view;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.controller.Rotator;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -32,10 +33,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -189,6 +191,41 @@ public class SpaceView extends StackPane implements ViewObserver {
                             northArrow.setRotate(180);
                             break;
 
+                    }
+                }
+                if (action instanceof Rotator){
+                    Rotator rotator = (Rotator) action;
+                    int rotation = rotator.getRotation();
+
+                    Circle rotatorCircle = new Circle(20);
+                    rotatorCircle.setCenterX(SPACE_WIDTH/2.0);
+                    rotatorCircle.setCenterY(SPACE_HEIGHT/2.0);
+                    pane.getChildren().add(rotatorCircle);
+                    rotatorCircle.setFill(Color.LIGHTGRAY);
+
+                    Text rotatorText = new Text();
+                    rotatorText.setFont(Font.font("Arial", FontWeight.BOLD,12));
+                    rotatorText.setFill(Color.PURPLE);
+                    rotatorText.setTextAlignment(TextAlignment.CENTER);
+                    rotatorText.setX(rotatorCircle.getCenterX() - rotatorText.getBoundsInLocal().getWidth() / 2);
+                    rotatorText.setY(rotatorCircle.getCenterY() + rotatorText.getBoundsInLocal().getHeight() / 2);
+
+                    pane.getChildren().add(rotatorText);
+
+
+
+                    switch (rotation){
+                        //Turn counterclockwise
+                        case 1:
+                            rotatorText.setText("CCW");
+
+                            break;
+
+                        //Turn clockwise
+                        case 2:
+                            rotatorText.setText("CW");
+
+                            break;
                     }
                 }
             }
