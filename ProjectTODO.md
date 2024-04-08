@@ -1,12 +1,24 @@
 ## TODO-List for our ROBORALLY project
 
-- Read feedback and correct in our Overleaf
-- Find out how to handle errors X
-- Find out about connecting to database PRIORITY
 - Create way to save cards in DB X
-- Checkpoints check and fix
 - Create way to save and load game (spillets tilstand) X
+
+
+### Overleaf
+- Read feedback and correct in our Overleaf
 - Update Overleaf with V4A
 - Update Overleaf with V4B
-- Load game from JSON files see slides for info
-- Write JAVADOC and write tests for program
+
+### Ekkart
+- Load game from JSON files see slides for info PRIORITY
+- Find out about connecting to database PRIORITY
+- Find out how to handle errors
+
+### Test
+- Write test for everything we have done, check TODO
+
+### Javadoc
+- Write javadoc + author tags for everything missing
+
+### Programming tasks
+- Visual aspect af checkpoints (Benja)
