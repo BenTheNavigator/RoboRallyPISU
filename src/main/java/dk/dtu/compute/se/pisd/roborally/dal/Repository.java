@@ -608,13 +608,4 @@ class Repository implements IRepository {
 		}
 		return select_card_fields_asc_stmt;
 	}
-
-	private Command convertStringToCommand (String commandString){
-		for (Command command : Command.values()){
-			if (command.displayName.equals(commandString)){
-				return command;
-			}
-		}
-		return null;
-	}
 }
