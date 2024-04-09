@@ -29,5 +29,19 @@ CREATE TABLE IF NOT EXISTS Player (
   FOREIGN KEY (gameID) REFERENCES Game(gameID)
 );;
 
+CREATE TABLE IF NOT EXISTS Card (
+    gameID int NOT NULL,
+    playerID tinyint NOT NULL,
+    type tinyint NOT NULL,
+    cardPosition tinyint NOT NULL,
+
+    isVisible BIT(1),
+    command tinyint,
+
+    PRIMARY KEY (gameID, playerID, type, cardPosition),
+    FOREIGN KEY (gameID) REFERENCES Game(gameID),
+    FOREIGN KEY (gameID, playerID) REFERENCES Player(gameID, playerID)
+);;
+
 SET FOREIGN_KEY_CHECKS = 1;;
 
