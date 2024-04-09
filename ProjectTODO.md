@@ -5,6 +5,7 @@
 - Lav kort sql connection til kort, samt json bords.
 - Tilføj points til database.
 - Ikke hardcode checkpoints, tilføje det så det er i board
+- Update Connector to be gitignored and to have a local version for our local DB
 
 
 ### Overleaf
