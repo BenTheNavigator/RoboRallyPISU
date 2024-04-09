@@ -2,12 +2,16 @@
 
 - Create way to save cards in DB X
 - Create way to save and load game (spillets tilstand) X
+- Lav kort sql connection til kort, samt json bords.
+- Tilføj points til database.
 
 
 ### Overleaf
 - Read feedback and correct in our Overleaf
 - Update Overleaf with V4A
 - Update Overleaf with V4B
+- Lav en sekvens diagram
+- 
 
 ### Ekkart
 - Load game from JSON files see slides for info PRIORITY
