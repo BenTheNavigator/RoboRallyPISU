@@ -4,6 +4,7 @@
 - Create way to save and load game (spillets tilstand) X
 - Lav kort sql connection til kort, samt json bords.
 - Tilføj points til database.
+- Ikke hardcode checkpoints, tilføje det så det er i board
 
 
 ### Overleaf
