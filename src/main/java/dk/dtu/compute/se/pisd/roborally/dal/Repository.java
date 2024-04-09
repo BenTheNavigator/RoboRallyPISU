@@ -116,7 +116,7 @@ class Repository implements IRepository {
 
 				createPlayersInDB(game);
 				//TODO V4a: this method needs to be implemented first
-				createCardFieldsInDB(game);
+				//createCardFieldsInDB(game);
 
 
 				// since current player is a foreign key, it can only be
@@ -181,7 +181,7 @@ class Repository implements IRepository {
 
 			updatePlayersInDB(game);
 			//TODO V4a: this method needs to be implemented first
-			updateCardFieldsInDB(game);
+			//updateCardFieldsInDB(game);
 
 
             connection.commit();
@@ -245,7 +245,7 @@ class Repository implements IRepository {
 			}
 
 			//TODO V4a: this method needs to be implemented first
-			loadCardFieldsFromDB(game);
+			//loadCardFieldsFromDB(game);
 
 
 			return game;

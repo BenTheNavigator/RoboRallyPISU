@@ -83,7 +83,8 @@ public class AppController implements Observer {
      * @author s235436
      */
 
-    IRepository repository = RepositoryAccess.getRepository();
+
+    //IRepository repository = RepositoryAccess.getRepository();
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
@@ -122,6 +123,7 @@ public class AppController implements Observer {
             // XXX: V2
             // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
+            RepositoryAccess.getRepository().createGameInDB(board);
 
             roboRally.createBoardView(gameController);
         }
@@ -131,7 +133,7 @@ public class AppController implements Observer {
      * Here we save the game in the database with a game ID. This can be used to load into it later.
      */
     public void saveGame() {
-        repository.updateGameInDB(gameController.board);
+        RepositoryAccess.getRepository().updateGameInDB(gameController.board);
     }
 
     /**
@@ -143,7 +145,7 @@ public class AppController implements Observer {
      * @author s23544
      */
     public void loadGame() {
-        List<GameInDB> list = repository.getGames();
+        List<GameInDB> list = RepositoryAccess.getRepository().getGames();
         Collections.reverse(list);
         ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(list.get(0), list);
         dialog.setTitle("Load Game");
@@ -152,7 +154,7 @@ public class AppController implements Observer {
 
         if (result.isPresent()) {
             int ID = result.get().id;
-            Board board = repository.loadGameFromDB(ID);
+            Board board = RepositoryAccess.getRepository().loadGameFromDB(ID);
             gameController = new GameController(board);
 
             for (int i = 0; i < board.getPlayersNumber(); i++) {
