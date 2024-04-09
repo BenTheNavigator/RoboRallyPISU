@@ -289,6 +289,7 @@ public class GameController {
                     break;
                 case BACKWARD:
                     this.moveBackward(player);
+                    break;
                 default:
                     // DO NOTHING (for now)
             }
