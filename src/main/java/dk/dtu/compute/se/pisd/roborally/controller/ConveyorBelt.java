@@ -35,19 +35,33 @@ import org.jetbrains.annotations.NotNull;
 // XXX A3
 public class ConveyorBelt extends FieldAction {
 
+    /**
+     * The direction that the conveyorbelt pushes the player
+     * @author s235436
+     */
     private Heading heading;
 
-
+    /**
+     * A method to get the heading
+     * @return the direction, that the conveyor belt pushes the player
+     * @author s235436
+     */
     public Heading getHeading() {
         return heading;
     }
 
+    /**
+     * A method to set the heading
+     * @param heading the new direction the conveyorbelt pushes the player
+     * @author s235436
+     */
     public void setHeading(Heading heading) {
         this.heading = heading;
     }
 
     /**
-     * Implementation of the action of a conveyor belt. Needs to be implemented for A3.
+     * The functionality of the conveyorbelt, that also checks if move is possible
+     * @author s235436
      */
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
