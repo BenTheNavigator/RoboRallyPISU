@@ -104,8 +104,8 @@ public class AppController implements Observer {
         Optional<Integer> result = dialog.showAndWait();
 
         ChoiceDialog<String> dialog2 = new ChoiceDialog<>(BOARD_CHOICES.get(0), BOARD_CHOICES);
-        dialog.setTitle("Board options");
-        dialog.setHeaderText("Select a board");
+        dialog2.setTitle("Board options");
+        dialog2.setHeaderText("Select a board");
         Optional<String> result2 = dialog2.showAndWait();
 
         if (result.isPresent() && result2.isPresent()) {
