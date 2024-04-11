@@ -12,3 +12,4 @@ target/
 .idea/
 *.DS_Store
 .vscode/
+src/main/java/dk/dtu/compute/se/pisd/roborally/dal/Connector.java
