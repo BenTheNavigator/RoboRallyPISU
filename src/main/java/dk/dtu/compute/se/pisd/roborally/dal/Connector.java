@@ -40,8 +40,8 @@ class Connector {
     private static final String HOST     = "localhost";
     private static final int    PORT     = 3306;
     private static final String DATABASE = "pisugroup5";
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
+    private static final String USERNAME = getUsername;
+    private static final String PASSWORD = getPassword;
 
     private static final String DELIMITER = ";;";
     
