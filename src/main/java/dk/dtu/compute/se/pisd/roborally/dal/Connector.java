@@ -30,7 +30,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * ...
+ * 
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
@@ -39,13 +39,19 @@ class Connector {
 	
     private static final String HOST     = "localhost";
     private static final int    PORT     = 3306;
-    private static final String DATABASE = "pisugroup5";
-    private static final String USERNAME = getUsername;
-    private static final String PASSWORD = getPassword;
+    private static final String DATABASE = "pisd";
+    private static final String USERNAME;
+    private static final String PASSWORD;
 
     private static final String DELIMITER = ";;";
     
     private Connection connection;
+
+	static {
+        USERNAME = DBCredentials.getUsername();
+        PASSWORD = DBCredentials.getPassword();
+    }
+
         
     Connector() {
         try {
