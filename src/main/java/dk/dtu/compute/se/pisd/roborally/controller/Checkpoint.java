@@ -8,6 +8,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 public class Checkpoint extends FieldAction {
     private int checkpointNumber;
 
+    private boolean lastCheckpoint;
+
     /**
      * A get method for a checkpoint number
      * @return returns a checkpoints number
@@ -32,12 +34,20 @@ public class Checkpoint extends FieldAction {
      * It checks if the final checkpoints has been reached, and if that is the case the phase is changed to winner and the status is updated.
      * @s235444
      */
+
+    public boolean getLastCheckpoint(){
+        return lastCheckpoint;
+    }
+
+    public void setLastCheckpoint(boolean lastCheckpoint){
+        this.lastCheckpoint = lastCheckpoint;
+    }
     @Override
     public boolean doAction(GameController gameController, Space space) {
         Player currentPlayer = space.getPlayer();
         if (currentPlayer.getCheckpointCounter() + 1 == checkpointNumber) {
             currentPlayer.setCheckpointCounter(checkpointNumber);
-            if (currentPlayer.getCheckpointCounter() == 5) {
+            if (lastCheckpoint) {
                 gameController.board.setPhase(Phase.WINNER);
                 gameController.board.getStatusMessage();
             }
