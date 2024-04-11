@@ -56,31 +56,26 @@ public class AppController implements Observer {
 
     /**
      * A list of the amounts of players possible
-     * @author s235436
      */
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     /**
      * A list of the player colors in order
-     * @author s235436
      */
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
 
     /**
      * The game associated with this appcontroller
-     * @author s235436
      */
     final private RoboRally roboRally;
 
     /**
      * The controller that relates to game functionality
-     * @author s235436
      */
     private GameController gameController;
 
     /**
      * A constructor to create an Appcontroller
      * @param roboRally the game
-     * @author s235436
      */
 
 

@@ -46,6 +46,7 @@ public class GameController {
      * happening on the board. This method should eventually be deleted!
      *
      * @param space the space to which the current player should move
+     * @author s235436
      */
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
         // TODO Assignment V1: method should be implemented by the students:
@@ -224,6 +225,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Method to complete the action of a fieldaction like a conveyorbelt etc.
+     */
     private void executeFieldActions() {
         for (int p = 0; p < board.getPlayersNumber(); p++ ) {
             Player player = board.getPlayer(p);
@@ -301,6 +305,7 @@ public class GameController {
     /**
      * Method to move forward
      * @param player the player whose turn it is
+     * @author s235436
      */
     public void moveForward(@NotNull Player player) {
         if (player.board == board) {
@@ -326,6 +331,14 @@ public class GameController {
             }
         }
     }
+
+    /**
+     * Method to move the player but checking and pushing if object is in the way
+     * @param player the player that needs to move
+     * @param space the space the player wants to move to
+     * @param heading the heading of the player
+     * @throws ImpossibleMoveException if its impossible to move to this space because of walls or similar
+     */
     void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
         assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
         Player other = space.getPlayer();
@@ -367,6 +380,7 @@ public class GameController {
     /**
      * Method to move forwards 2 spaces
      * @param player the player whose turn it is
+     * @author s235436
      */
     public void fastForward(@NotNull Player player) {
         moveForward(player);
@@ -379,6 +393,7 @@ public class GameController {
     /**
      * Method to change heading clockwise
      * @param player the player whose turn it is
+     * @author s235436
      */
     public void turnRight(@NotNull Player player) {
         Heading heading = player.getHeading();
@@ -391,6 +406,7 @@ public class GameController {
     /**
      * Method to change heading counterclockwise
      * @param player the player whose turn it is
+     * @author s235436
      */
     public void turnLeft(@NotNull Player player) {
         Heading heading = player.getHeading();
@@ -401,6 +417,7 @@ public class GameController {
     /**
      * Method to move backward
      * @param player the player that has to move
+     * @author s235436
      */
     public void moveBackward(@NotNull Player player) {
         turnLeft(player);
