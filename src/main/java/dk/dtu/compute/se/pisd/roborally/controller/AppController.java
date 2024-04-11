@@ -103,6 +103,12 @@ public class AppController implements Observer {
         dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
+        /**
+         * Displays different board options, player can choose from.
+         * @author s235444
+         * @author s235458
+         */
+
         ChoiceDialog<String> dialog2 = new ChoiceDialog<>(BOARD_CHOICES.get(0), BOARD_CHOICES);
         dialog2.setTitle("Board options");
         dialog2.setHeaderText("Select a board");
@@ -119,7 +125,9 @@ public class AppController implements Observer {
 
             /** 
              * Changed board to load from LoadBoard, then we can load from JSON files.
+             * The code makes it possible to have multiple boards, which players can choose from.
              * @author s235444
+             * @author s235458
             */
             Board board = LoadBoard.loadBoard(result2.get());
 
