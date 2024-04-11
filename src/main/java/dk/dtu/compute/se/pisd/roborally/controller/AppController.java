@@ -69,7 +69,7 @@ public class AppController implements Observer {
      * A list of the board options players can choose from
      * @author s235444
      */
-    final private List<String> BOARD_CHOICES = Arrays.asList("defaultboard", "notmade", "notmade");
+    final private List<String> BOARD_CHOICES = Arrays.asList("defaultboard", "poseidon", "roboloco");
 
 
     /**
