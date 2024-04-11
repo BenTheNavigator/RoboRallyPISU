@@ -2,7 +2,7 @@ package dk.dtu.compute.se.pisd.roborally.dal;
 
 /**
  * Template class to insert credentials for your DB. Not secure yet, probably needs to be fixed.
- * @author s23544
+ * @author s235444
  */
 
 public class DBCredentials {
