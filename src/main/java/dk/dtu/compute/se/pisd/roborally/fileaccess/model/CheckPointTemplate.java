@@ -4,8 +4,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Heading;
 
 public class CheckPointTemplate extends ActionTemplate {
 
-    public int number;
+    public int checkpointNumber;
 
-    public boolean last;
+    public boolean lastCheckpoint;
 
 }
