@@ -28,6 +28,7 @@ import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.dal.GameInDB;
 import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
@@ -63,6 +64,14 @@ public class AppController implements Observer {
      */
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
 
+
+    /**
+     * A list of the board options players can choose from
+     * @author s235444
+     */
+    final private List<String> BOARD_CHOICES = Arrays.asList("defaultboard", "notmade", "notmade");
+
+
     /**
      * The game associated with this appcontroller
      */
@@ -94,7 +103,12 @@ public class AppController implements Observer {
         dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
+        ChoiceDialog<String> dialog2 = new ChoiceDialog<>(BOARD_CHOICES.get(0), BOARD_CHOICES);
+        dialog.setTitle("Board options");
+        dialog.setHeaderText("Select a board");
+        Optional<String> result2 = dialog2.showAndWait();
+
+        if (result.isPresent() && result2.isPresent()) {
             if (gameController != null) {
                 // The UI should not allow this, but in case this happens anyway.
                 // give the user the option to save the game or abort this operation!
@@ -103,10 +117,12 @@ public class AppController implements Observer {
                 }
             }
 
-            // XXX the board should eventually be created programmatically or loaded from a file
-            //     here we just create an empty board with the required number of players.
-            // Board board = new Board(8,8);
-            Board board = BoardFactory.getInstance().createBoard(null);
+            /** 
+             * Changed board to load from LoadBoard, then we can load from JSON files.
+             * @author s235444
+            */
+            Board board = LoadBoard.loadBoard(result2.get());
+
             gameController = new GameController(board);
             int no = result.get();
             for (int i = 0; i < no; i++) {
