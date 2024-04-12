@@ -125,6 +125,11 @@ public class LoadBoard {
             checkpoint.setCheckpointNumber(template.number);
             checkpoint.setLastCheckpoint(template.last);
             return checkpoint;
+        } else if (actionTemplate instanceof RotatorTemplate) {
+            RotatorTemplate template = (RotatorTemplate) actionTemplate;
+            Rotator rotator = new Rotator();
+            rotator.setRotation(template.rotation);
+            return rotator;
         }
 
         return null;
@@ -226,6 +231,11 @@ public class LoadBoard {
             checkPointTemplate.number = checkpoint.getCheckpointNumber();
             checkPointTemplate.last = checkpoint.getLastCheckpoint();
             return checkPointTemplate;
+        } else if (action instanceof Rotator){
+            Rotator rotator = (Rotator) action;
+            RotatorTemplate rotatorTemplate = new RotatorTemplate();
+            rotatorTemplate.rotation = rotator.getRotation();
+            return rotatorTemplate;
         }
 
 
