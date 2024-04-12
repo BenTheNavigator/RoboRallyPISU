@@ -109,36 +109,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             rectangle.setFill(Color.TRANSPARENT);
             pane.getChildren().add(rectangle);
 
-            for (Heading heading : space.getWalls()){
-                switch (heading) {
-                    case SOUTH:
-                        Line southLine = new Line(2,SPACE_HEIGHT-2,SPACE_WIDTH-2,SPACE_HEIGHT-2);
-                        southLine.setStroke(Color.RED);
-                        southLine.setStrokeWidth(5);
-                        pane.getChildren().add(southLine);
-                        break;
-                    case EAST:
-                        Line eastLine = new Line(SPACE_WIDTH-2,2,SPACE_WIDTH-2,SPACE_HEIGHT-2);
-                        eastLine.setStroke(Color.RED);
-                        eastLine.setStrokeWidth(5);
-                        pane.getChildren().add(eastLine);
-                        break;
-                    case WEST:
-                        Line westLine = new Line(2,2,2,SPACE_HEIGHT-2);
-                        westLine.setStroke(Color.RED);
-                        westLine.setStrokeWidth(5);
-                        pane.getChildren().add(westLine);
-                        break;
-
-                    case NORTH:
-                        Line northLine = new Line(2,2,SPACE_WIDTH-2,2);
-                        northLine.setStroke(Color.RED);
-                        northLine.setStrokeWidth(5);
-                        pane.getChildren().add(northLine);
-                        break;
-                }
-            }
-
             for (FieldAction action : space.getActions()){
                 if (action instanceof ConveyorBelt){
                     ConveyorBelt conveyorBelt = (ConveyorBelt) action;
@@ -272,6 +242,36 @@ public class SpaceView extends StackPane implements ViewObserver {
 
                     pane.getChildren().add(checkpointNumber);
 
+                }
+
+            }
+            for (Heading heading : space.getWalls()){
+                switch (heading) {
+                    case SOUTH:
+                        Line southLine = new Line(2,SPACE_HEIGHT-2,SPACE_WIDTH-2,SPACE_HEIGHT-2);
+                        southLine.setStroke(Color.RED);
+                        southLine.setStrokeWidth(5);
+                        pane.getChildren().add(southLine);
+                        break;
+                    case EAST:
+                        Line eastLine = new Line(SPACE_WIDTH-2,2,SPACE_WIDTH-2,SPACE_HEIGHT-2);
+                        eastLine.setStroke(Color.RED);
+                        eastLine.setStrokeWidth(5);
+                        pane.getChildren().add(eastLine);
+                        break;
+                    case WEST:
+                        Line westLine = new Line(2,2,2,SPACE_HEIGHT-2);
+                        westLine.setStroke(Color.RED);
+                        westLine.setStrokeWidth(5);
+                        pane.getChildren().add(westLine);
+                        break;
+
+                    case NORTH:
+                        Line northLine = new Line(2,2,SPACE_WIDTH-2,2);
+                        northLine.setStroke(Color.RED);
+                        northLine.setStrokeWidth(5);
+                        pane.getChildren().add(northLine);
+                        break;
                 }
             }
 
