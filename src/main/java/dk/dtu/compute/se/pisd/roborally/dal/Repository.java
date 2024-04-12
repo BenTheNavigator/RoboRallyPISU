@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.dal;
 
 import dk.dtu.compute.se.pisd.roborally.controller.BoardFactory;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.sql.*;
@@ -81,7 +82,7 @@ class Repository implements IRepository {
 	}
 
 	@Override
-	public boolean createGameInDB(Board game) {
+	public boolean createGameInDB(Board game, String boardname) {
 		if (game.getGameId() == null) {
 			Connection connection = connector.getConnection();
 			try {
@@ -95,6 +96,7 @@ class Repository implements IRepository {
 				ps.setNull(2, Types.TINYINT); // game.getPlayerNumber(game.getCurrentPlayer())); is inserted after players!
 				ps.setInt(3, game.getPhase().ordinal());
 				ps.setInt(4, game.getStep());
+				ps.setString(5, boardname);
 
 				// If you have a foreign key constraint for current players,
 				// the check would need to be temporarily disabled, since
@@ -220,7 +222,7 @@ class Repository implements IRepository {
 				// TODO V4b: and we should also store the name of the used game board
 				//      in the database, and load the corresponding board from the
 				//      JSON file. For now, we use the default game board.
-				game = BoardFactory.getInstance().createBoard(null);
+				game = LoadBoard.loadBoard(rs.getString("boardName"));
 				if (game == null) {
 					return null;
 				}
@@ -353,7 +355,7 @@ class Repository implements IRepository {
 	}
 
 	private static final String SQL_INSERT_GAME =
-			"INSERT INTO Game(name, currentPlayer, phase, step) VALUES (?, ?, ?, ?)";
+			"INSERT INTO Game(name, currentPlayer, phase, step, boardName) VALUES (?, ?, ?, ?, ?)";
 
 	private PreparedStatement insert_game_stmt = null;
 

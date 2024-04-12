@@ -56,7 +56,7 @@ public class LoadBoard {
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
         if (inputStream == null) {
-            return BoardFactory.getInstance().createBoard(boardname);
+            return new Board(8,8);
         }
 
 		// In simple cases, we can create a Gson object with new Gson():
