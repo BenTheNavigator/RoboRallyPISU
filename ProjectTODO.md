@@ -4,6 +4,8 @@
 - Tilføj points til database.
 - Add player number to DB, + points
 - Ikke hardcode checkpoints, tilføje det så det er i board måske, men skal tjekkes
+- Spaceview check code and reformat for it to be cleaner
+- MVN wrapper Benjamin opsæt
 
 ### Overleaf
 - Read feedback and correct in our Overleaf
