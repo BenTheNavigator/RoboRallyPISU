@@ -130,6 +130,10 @@ public class LoadBoard {
             Rotator rotator = new Rotator();
             rotator.setRotation(template.rotation);
             return rotator;
+        } else if (actionTemplate instanceof TrenchTemplate) {
+            TrenchTemplate template = (TrenchTemplate) actionTemplate;
+            Trench trench = new Trench();
+            return trench;
         }
 
         return null;
@@ -236,6 +240,10 @@ public class LoadBoard {
             RotatorTemplate rotatorTemplate = new RotatorTemplate();
             rotatorTemplate.rotation = rotator.getRotation();
             return rotatorTemplate;
+        } else if (action instanceof Trench){
+            Trench trench = (Trench) action;
+            TrenchTemplate trenchTemplate = new TrenchTemplate();
+            return trenchTemplate;
         }
 
 
