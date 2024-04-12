@@ -22,10 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
-import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.controller.Rotator;
-import dk.dtu.compute.se.pisd.roborally.controller.Trench;
+import dk.dtu.compute.se.pisd.roborally.controller.*;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -247,6 +244,34 @@ public class SpaceView extends StackPane implements ViewObserver {
 
 
                     trenchSquare.setFill(Color.CYAN);
+                }
+                if (action instanceof Checkpoint){
+                    Checkpoint checkpoint = (Checkpoint) action;
+
+                    Rectangle checkpointSquare = new Rectangle(SPACE_WIDTH/2.0, SPACE_HEIGHT/2.0);
+
+                    double topLeftX = SPACE_WIDTH/2.0 - SPACE_WIDTH/4.0;
+                    double topLeftY = SPACE_HEIGHT/2.0 - SPACE_HEIGHT/4.0;
+
+                    checkpointSquare.setX(topLeftX);
+                    checkpointSquare.setY(topLeftY);
+
+
+                    pane.getChildren().add(checkpointSquare);
+
+                    checkpointSquare.setFill(Color.GOLD);
+
+
+                    Text checkpointNumber = new Text(String.valueOf(checkpoint.getCheckpointNumber()));
+                    checkpointNumber.setFont(Font.font("Arial", FontWeight.BOLD,12));
+                    checkpointNumber.setFill(Color.BLACK);
+
+                    checkpointNumber.setX(topLeftX + (SPACE_WIDTH/4.0 - checkpointNumber.getLayoutBounds().getWidth() / 2));
+                    checkpointNumber.setY(topLeftY + (SPACE_HEIGHT/4.0 + checkpointNumber.getLayoutBounds().getHeight() / 2));
+
+
+                    pane.getChildren().add(checkpointNumber);
+
                 }
             }
 

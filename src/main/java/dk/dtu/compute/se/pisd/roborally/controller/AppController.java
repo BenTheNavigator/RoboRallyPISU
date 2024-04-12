@@ -69,7 +69,7 @@ public class AppController implements Observer {
      * A list of the board options players can choose from
      * @author s235444
      */
-    final private List<String> BOARD_CHOICES = Arrays.asList("defaultboard", "notmade", "notmade");
+    final private List<String> BOARD_CHOICES = Arrays.asList("defaultboard", "poseidon", "roboloco");
 
 
     /**
@@ -142,7 +142,7 @@ public class AppController implements Observer {
             // XXX: V2
             // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
-            //RepositoryAccess.getRepository().createGameInDB(board);
+            RepositoryAccess.getRepository().createGameInDB(board, result2.get());
 
             roboRally.createBoardView(gameController);
         }

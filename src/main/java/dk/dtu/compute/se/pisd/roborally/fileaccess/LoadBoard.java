@@ -25,10 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import dk.dtu.compute.se.pisd.roborally.controller.AppController;
-import dk.dtu.compute.se.pisd.roborally.controller.BoardFactory;
-import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
-import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.controller.*;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -59,7 +56,7 @@ public class LoadBoard {
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
         if (inputStream == null) {
-            return BoardFactory.getInstance().createBoard(boardname);
+            return new Board(8,8);
         }
 
 		// In simple cases, we can create a Gson object with new Gson():
@@ -122,11 +119,13 @@ public class LoadBoard {
             ConveyorBelt conveyorBelt = new ConveyorBelt();
             conveyorBelt.setHeading(template.heading);
             return conveyorBelt;
-        } // else if ...
-        // XXX if new field actions are added, the corresponding templates
-        //     need to be added to the model subpackage of fileaccess and
-        //     the else statement must be extended for converting the
-        //     action template to the corresponding field action.
+        } else if (actionTemplate instanceof CheckPointTemplate) {
+            CheckPointTemplate template = (CheckPointTemplate) actionTemplate;
+            Checkpoint checkpoint = new Checkpoint();
+            checkpoint.setCheckpointNumber(template.number);
+            checkpoint.setLastCheckpoint(template.last);
+            return checkpoint;
+        }
 
         return null;
     }
@@ -221,11 +220,14 @@ public class LoadBoard {
             ConveyorBeltTemplate conveyorBeltTemplate = new ConveyorBeltTemplate();
             conveyorBeltTemplate.heading = conveyorBelt.getHeading();
             return conveyorBeltTemplate;
-        } // else if ...
-        // XXX if new field actions are added, the corresponding templates
-        //     need to be added to the model subpackage of fileaccess and
-        //     the else statement must be extended for converting the
-        //    field action to the corresponding action template.
+        } else if (action instanceof Checkpoint) {
+            Checkpoint checkpoint = (Checkpoint) action;
+            CheckPointTemplate checkPointTemplate = new CheckPointTemplate();
+            checkPointTemplate.number = checkpoint.getCheckpointNumber();
+            checkPointTemplate.last = checkpoint.getLastCheckpoint();
+            return checkPointTemplate;
+        }
+
 
         return null;
     }
