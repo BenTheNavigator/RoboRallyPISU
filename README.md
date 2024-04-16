@@ -1,6 +1,7 @@
 # GuideToStart
-- In your MySQL write: CREATE DATABASE pisd;
-- And: USE pisd;
+- In your MySQL write: 
+- CREATE DATABASE pisd;
+- USE pisd;
 - Execute both.
 
 
