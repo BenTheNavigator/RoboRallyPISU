@@ -90,6 +90,9 @@ public class BoardView extends VBox implements ViewObserver {
         if (subject == board) {
             Phase phase = board.getPhase();
             statusLabel.setText(board.getStatusMessage());
+            if(phase == Phase.WINNER) {
+                displayPopup(board.getWinnerStatusMessage());
+            }
         }
     }
 
@@ -125,7 +128,7 @@ public class BoardView extends VBox implements ViewObserver {
      * @param message to display
      * @author s235444
      */
-    public void displayPopup(String message) {
+    private void displayPopup(String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("There is a winner!!!");
         alert.setHeaderText(null);
