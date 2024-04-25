@@ -62,6 +62,8 @@ class Repository implements IRepository {
 
 	private static final String PLAYER_HEADING = "heading";
 
+	private static final String PLAYER_CHECKPOINT = "checkpoint";
+
 	private static final String CARD_GAMEID = "gameID";
 
 	private static final String CARD_PLAYERID = "playerID";
@@ -298,6 +300,7 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
+			rs.updateInt(PLAYER_CHECKPOINT, player.getCheckpointCounter());
 			rs.insertRow();
 		}
 
@@ -324,6 +327,8 @@ class Repository implements IRepository {
 				player.setSpace(game.getSpace(x,y));
 				int heading = rs.getInt(PLAYER_HEADING);
 				player.setHeading(Heading.values()[heading]);
+				int checkpoint = rs.getInt(PLAYER_CHECKPOINT);
+				player.setCheckpointCounter(checkpoint);
 			} else {
 				// TODO error handling
 				System.err.println("Game in DB does not have a player with id " + i +"!");
@@ -345,6 +350,7 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
+			rs.updateInt(PLAYER_CHECKPOINT, player.getCheckpointCounter());
 			// TODO error handling
 			// TODO take care of case when number of players changes, etc
 			rs.updateRow();
