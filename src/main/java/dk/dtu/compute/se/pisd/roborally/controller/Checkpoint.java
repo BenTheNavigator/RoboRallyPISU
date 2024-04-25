@@ -49,7 +49,7 @@ public class Checkpoint extends FieldAction {
             currentPlayer.setCheckpointCounter(checkpointNumber);
             if (lastCheckpoint) {
                 gameController.board.setPhase(Phase.WINNER);
-                gameController.board.getStatusMessage();
+                //gameController.board.getStatusMessage();
             }
             return true;
         }
