@@ -46,12 +46,21 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
+    /**
+     * The width and height of the space (usually adjusted between members)
+     */
     final public static int SPACE_HEIGHT = 60; // 60; // 75;
     final public static int SPACE_WIDTH = 60;  // 60; // 75;
 
+    /**
+     * The specified space
+     */
     public final Space space;
 
-
+    /**
+     * Makes the space show
+     * @param space the specific space
+     */
     public SpaceView(@NotNull Space space) {
         this.space = space;
 
@@ -77,6 +86,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         update(space);
     }
 
+    /**
+     * Method to show the player on the board
+     */
     private void updatePlayer() {
 
 
