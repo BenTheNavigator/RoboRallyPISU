@@ -323,7 +323,7 @@ public class Board extends Subject {
         // XXX: V2 changed the status so that it shows the phase, the current player and the number of steps
 
         if (getPhase() == WINNER) {
-            return winnerStatusMessage;
+            return winnerStatusMessage();
         }
 
 
@@ -333,9 +333,9 @@ public class Board extends Subject {
 
     public String winnerStatusMessage() {
         StringBuilder winnerStatusMessage = new StringBuilder("The winner is " + getCurrentPlayer().getName() + " with " + getCurrentPlayer().getCheckpointCounter() + " checkpoints!\n");
-        int x = getPlayersNumber();
-        while (x > 0) {
-            if(getPlayer(x) == getCurrentPlayer()) {
+        int x = getPlayersNumber() - 1;
+        while (x >= 0) {
+            if(getPlayer(x).equals(getCurrentPlayer())) {
                 x--;
                 continue;
             }
