@@ -98,7 +98,7 @@ public class GameController {
     /**
      * A method that generates a new card for programming
      */
-    private CommandCard generateRandomCommandCard() {
+    public CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length);
         return new CommandCard(commands[random]);
@@ -124,7 +124,7 @@ public class GameController {
      * @param register the number programming card
      */
 
-    private void makeProgramFieldsVisible(int register) {
+    public void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
                 Player player = board.getPlayer(i);
@@ -139,7 +139,7 @@ public class GameController {
     /**
      * A method that makes it impossible to use the programming field
      */
-    private void makeProgramFieldsInvisible() {
+    public void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
             for (int j = 0; j < Player.NO_REGISTERS; j++) {
@@ -172,7 +172,7 @@ public class GameController {
     /**
      * The method that follows the previous ones, that actually executes whats been told
      */
-    private void continuePrograms() {
+    public void continuePrograms() {
         do {
             executeNextStep();
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
@@ -185,7 +185,7 @@ public class GameController {
      * and so forth, before going to Player1's second program. We have in total a max of 5 steps in the game, as
      * we can only place a maximum of 5 cards.
      */
-    private void executeNextStep() {
+    public void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
             int step = board.getStep();
@@ -228,7 +228,7 @@ public class GameController {
     /**
      * Method to complete the action of a fieldaction like a conveyorbelt etc.
      */
-    private void executeFieldActions() {
+    public void executeFieldActions() {
         for (int p = 0; p < board.getPlayersNumber(); p++ ) {
             Player player = board.getPlayer(p);
             Space space = player.getSpace();
@@ -272,7 +272,7 @@ public class GameController {
      * @param player the player whose turn it is
      * @param command
      */
-    private void executeCommand(@NotNull Player player, Command command) {
+    public void executeCommand(@NotNull Player player, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
             //     their execution. This should eventually be done in a more elegant way

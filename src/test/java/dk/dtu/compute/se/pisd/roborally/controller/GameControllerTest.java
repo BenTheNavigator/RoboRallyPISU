@@ -4,9 +4,10 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
-
 import dk.dtu.compute.se.pisd.roborally.model.CommandCard;
-import dk.dtu.compute.se.pisd.roborally.model.makeProgramFieldsInvisible
+import dk.dtu.compute.se.pisd.roborally.model.Phase;
+import dk.dtu.compute.se.pisd.roborally.model.makeProgramFieldsInvisible;
+import dk.dtu.compute.se.pisd.roborally.model.GameController
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GameControllerTest {
+
 
     private final int TEST_WIDTH = 8;
     private final int TEST_HEIGHT = 8;
@@ -33,6 +35,7 @@ class GameControllerTest {
             player.setHeading(Heading.values()[i % Heading.values().length]);
         }
         board.setCurrentPlayer(board.getPlayer(0));
+        gameController.startProgrammingPhase();
     }
 
     @AfterEach
@@ -130,35 +133,38 @@ class GameControllerTest {
 
 
     @Test
-    void testFinishProgrammingPhase() {
-        // Initialize the board for the test
-        this.setUp(); // If board is not initialized as a field, make sure it is before calling this test
-        Board board = gameController.board;
-        Player current = board.getCurrentPlayer();
-        
+    void FinishProgrammingPhase1() {
         gameController.startProgrammingPhase(); // To set the initial conditions as expected
         gameController.finishProgrammingPhase();
     
-        // Verify that all program fields are invisible
-        for (Player player : gameController.board.getPlayers()) {
-            for (int i = 0; i < Player.NO_REGISTERS; i++) {
-                assertFalse(player.getProgramField(i).isVisible(), "Program fields should be invisible.");
+        int playerCount = gameController.board.getPlayersNumber(); // Assuming this method exists to get the count of players
+        for (int i = 0; i < playerCount; i++) {
+            Player player = gameController.board.getPlayer(i);
+            for (int j = 0; j < Player.NO_REGISTERS; j++) {
+                Assertions.assertTrue(player.getProgramField(j).isVisible(), "Program fields should be invisible.");
             }
         }
     
-        // Verify that the game phase is now ACTIVATION
-        assertEquals(Phase.ACTIVATION, gameController.board.getPhase(), "Game phase should be ACTIVATION.");
+        Assertions.assertEquals(Phase.ACTIVATION, gameController.board.getPhase(), "Game phase should be ACTIVATION.");
+        Assertions.assertEquals(gameController.board.getPlayer(0), gameController.board.getCurrentPlayer(), "Current player should be the first player.");
+        Assertions.assertEquals(0, gameController.board.getStep(), "Step count should be reset to 0.");
+    }
     
-        // Verify that the current player is set to the first player
-        assertEquals(gameController.board.getPlayer(0), gameController.board.getCurrentPlayer(), "Current player should be the first player.");
-    
-        // Verify that the step count is reset to 0
-        assertEquals(0, gameController.board.getStep(), "Step count should be reset to 0.");
+    @Test
+    void FinishProgrammingPhase() {
+        gameController.startProgrammingPhase();
+        gameController.finishProgrammingPhase();
+
+        // Example of using assertion methods directly because of static import
+        Assertions.assertFalse(gameController.board.getPhase() == Phase.ACTIVATION, "Game phase should not be ACTIVATION.");
+        Assertions.assertEquals(Phase.ACTIVATION, gameController.board.getPhase(), "Game phase should be ACTIVATION.");
+        Assertions.assertEquals(gameController.board.getPlayer(0), gameController.board.getCurrentPlayer(), "Current player should be the first player.");
+        Assertions.assertEquals(0, gameController.board.getStep(), "Step count should be reset to 0.");
     }
     
 
     @Test
-    public void testGenerateRandomCommandCard() {
+    public CommandCard GenerateRandomCommandCard() {
         Set<CommandCard> drawnCards = new HashSet<>();
         int numberOfDraws = 100; // Decide on a sufficiently large number of draws
 
@@ -181,15 +187,15 @@ class GameControllerTest {
     }
 
     @Test
-    public void testGenerateRandomCommandCardPositive() {
+    public void GenerateRandomCommandCardPositive() {
         CommandCard commandCard = generateRandomCommandCard();
-        assertNotNull(commandCard);
-        assertNotNull(commandCard.getCommand());
-        assertTrue(commandCard.getCommand() instanceof Command);
+        Assertions.assertNotNull(commandCard);
+        Assertions.assertNotNull(commandCard.getCommand());
+        Assertions.assertTrue(commandCard.getCommand() instanceof Command);
     }
 
     @Test
-    void testGenerateRandomCommandCardNegative() {
+    void GenerateRandomCommandCardNegative() {
         // Test when the input is null
         CommandCard commandCard = new CommandCard(null);
         assertNull(commandCard.getCommand());
@@ -198,21 +204,129 @@ class GameControllerTest {
         CommandCard commandCard2 = new CommandCard(Command.values().length + 1);
         assertNull(commandCard2.getCommand());
     }
-}
+
 @Test
-void testMakeProgramFieldsVisible() {
-    // Assuming you have a method that eventually calls makeProgramFieldsVisible
-    // For this example, let's assume `startProgrammingPhase()` makes the first program field visible
+void MakeProgramFieldsVisible() {
+    // Testing if the fields is visible for each player.
 
     gameController.makeProgramFieldsVisible();
 
     // Now, check that the program field is visible for each player
-    gameController.board.getPlayers().forEach(player -> {
+    gameController.board.getPlayer().forEach(player -> {
         Assertions.assertTrue(player.getProgramField(0).isVisible(), "The first program field should be visible for all players.");
-        // Add more assertions if you want to check other program fields based on your test conditions
     });
 }
 
+@Test
+    void ExecutePrograms() {
+        gameController.executePrograms(); // This should execute all commands set above
+
+        // Test if the board's phase is still ACTIVATION after execution
+        Assertions.assertEquals(Phase.ACTIVATION, gameController.board.getPhase(), "Phase should be ACTIVATION after all programs are executed");
+
+        // Check if all players moved to the expected positions
+        for (Player player : gameController.board.getPlayers()) {
+            Space expectedSpace = null;
+            // Assume FORWARD moves each player one space forward in their heading
+            switch (player.getHeading()) {
+                case NORTH:
+                    expectedSpace = gameController.board.getSpace(player.getSpace().getX(), player.getSpace().getY() - 1);
+                    break;
+                case SOUTH:
+                    expectedSpace = gameController.board.getSpace(player.getSpace().getX(), player.getSpace().getY() + 1);
+                    break;
+                case EAST:
+                    expectedSpace = gameController.board.getSpace(player.getSpace().getX() + 1, player.getSpace().getY());
+                    break;
+                case WEST:
+                    expectedSpace = gameController.board.getSpace(player.getSpace().getX() - 1, player.getSpace().getY());
+                    break;
+            }
+            Assertions.assertSame(expectedSpace, player.getSpace(), "Player should have moved forward to the next space in their heading");
+        }
+    }
+
+    @Test
+    void ExecuteStep() {
+    // Initially start the programming phase to initialize the steps
+    
+        // Initially verify that no steps have been executed
+        Assertions.assertEquals(0, gameController.board.getStep(), "Initial step count should be zero.");
+    
+        // Execute a single step
+        gameController.executeStep();
+    
+        // Verify step mode is true, ensuring we are stepping through commands one at a time
+        Assertions.assertTrue(gameController.board.isStepMode(), "Step mode should be enabled after executeStep.");
+    
+        // Assert that only one step has been executed
+        Assertions.assertEquals(1, gameController.board.getStep(), "One step should have been executed after calling executeStep.");
+    
+        // Check if the game phase remains as ACTIVATION (assuming no player interaction is triggered)
+        Assertions.assertEquals(Phase.ACTIVATION, gameController.board.getPhase(), "Game phase should still be ACTIVATION if no interactive command was executed.");
+    
+        Player currentPlayer = gameController.board.getCurrentPlayer();
+        // Check expected changes to currentPlayer state here, which depends on what command they executed
+    }
+
+    @Test
+    void ExecuteNextStep() {
+    // Initially verify that no steps have been executed
+    Assertions.assertEquals(0, gameController.board.getStep(), "Initial step count should be zero.");
+
+    // Execute a single step which should internally call executeNextStep()
+    gameController.executeStep();
+
+    // Verify step mode is true, ensuring we are stepping through commands one at a time
+    Assertions.assertTrue(gameController.board.isStepMode(), "Step mode should be enabled after executeStep.");
+
+    // Assert that only one step has been executed
+    Assertions.assertEquals(1, gameController.board.getStep(), "One step should have been executed after calling executeStep.");
+
+    // Check if the game phase remains as ACTIVATION (assuming no player interaction is triggered)
+    Assertions.assertEquals(Phase.ACTIVATION, gameController.board.getPhase(), "Game phase should still be ACTIVATION if no interactive command was executed.");
+
+    // Check that the current player's position has changed according to the command.
+    Player currentPlayer = gameController.board.getCurrentPlayer();
+    Space initialSpace = currentPlayer.getSpace();
+    Heading heading = currentPlayer.getHeading();
+    Space expectedSpace = gameController.board.getNeighbour(initialSpace, heading);
+
+    Assertions.assertEquals(expectedSpace, currentPlayer.getSpace(), "Current player should move according to their command card.");
+
+    // Optionally, ensure that currentPlayer is set to the next player if that is part of the step logic
+    int currentPlayerIndex = gameController.board.getPlayers().indexOf(currentPlayer);
+    Player expectedNextPlayer = gameController.board.getPlayers().get((currentPlayerIndex + 1) % gameController.board.getPlayers().size());
+    Assertions.assertEquals(expectedNextPlayer, gameController.board.getCurrentPlayer(), "Next player should now be the current player after step execution.");
+}
 
 
+ // Koden er helt gg, skal lige tjekkes op på igen
+    @Test
+    void ExecuteFieldActions() {
+    // Arrange: Prepare the board and a player with a predictable field action
+    Player player = gameController.board.getCurrentPlayer();
+    Space startingSpace = player.getSpace(); // Use the player's starting space as defined in setUp()
+
+    // Assume there is a specific field action that moves the player to a new space when triggered
+    FieldAction mockAction = new FieldAction() {
+        @Override
+        public void doAction(GameController gameController, Space space) {
+            // Define a new target space for the action
+            Space targetSpace = gameController.board.getSpace(space.getX() + 1, space.getY()); // Example move right
+            gameController.moveCurrentPlayerToSpace(targetSpace);
+        }
+    };
+    startingSpace.addAction(mockAction);
+
+    // Act: Execute a method that results in `executeFieldActions()` being called
+    gameController.executeStep(); // This should indirectly trigger `executeFieldActions()`
+
+    // Assert: Verify that the field action was executed properly
+    Space expectedSpace = gameController.board.getSpace(startingSpace.getX() + 1, startingSpace.getY());
+    Assertions.assertEquals(expectedSpace, player.getSpace(), "Player should have moved to the right by one space due to field action.");
+
+    // Clean up to remove the mock action to prevent side effects in other tests
+    startingSpace.removeAction(mockAction);
+}
 }
