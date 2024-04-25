@@ -315,13 +315,6 @@ public class Board extends Subject {
      * @return a String that tells information
      */
     public String getStatusMessage() {
-        // this is actually a view aspect, but for making assignment V1 easy for
-        // the students, this method gives a string representation of the current
-        // status of the game
-
-        // XXX: V1 add the move count to the status message
-        // XXX: V2 changed the status so that it shows the phase, the current player and the number of steps
-
         if (getPhase() == WINNER) {
             return winnerStatusMessage();
         }
@@ -331,6 +324,11 @@ public class Board extends Subject {
                 + "  Steps: " + getStep() + "  Moves: " + getCount();
     }
 
+    /**
+     * A string builder for the winnerStatusMessage.
+     * @return String of the winner and other player's checkpoints
+     * @author s235444
+     */
     public String winnerStatusMessage() {
         StringBuilder winnerStatusMessage = new StringBuilder("The winner is " + getCurrentPlayer().getName() + " with " + getCurrentPlayer().getCheckpointCounter() + " checkpoints!\n");
         int x = getPlayersNumber() - 1;
