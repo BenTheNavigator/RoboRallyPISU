@@ -322,8 +322,27 @@ public class Board extends Subject {
         // XXX: V1 add the move count to the status message
         // XXX: V2 changed the status so that it shows the phase, the current player and the number of steps
 
+        if (getPhase() == WINNER) {
+            return winnerStatusMessage;
+        }
+
+
         return "Phase: " + getPhase() +  "  Player: " + getCurrentPlayer().getName() + "  Checkpoints: " + getCurrentPlayer().getCheckpointCounter()
                 + "  Steps: " + getStep() + "  Moves: " + getCount();
+    }
+
+    public String winnerStatusMessage() {
+        StringBuilder winnerStatusMessage = new StringBuilder("The winner is " + getCurrentPlayer().getName() + " with " + getCurrentPlayer().getCheckpointCounter() + " checkpoints!\n");
+        int x = getPlayersNumber();
+        while (x > 0) {
+            if(getPlayer(x) == getCurrentPlayer()) {
+                x--;
+                continue;
+            }
+            winnerStatusMessage.append(getPlayer(x).getName()).append(" : ").append(getPlayer(x).getCheckpointCounter()).append(" checkpoints\n");
+            x--;
+        }
+        return winnerStatusMessage.toString();
     }
 
     /**
