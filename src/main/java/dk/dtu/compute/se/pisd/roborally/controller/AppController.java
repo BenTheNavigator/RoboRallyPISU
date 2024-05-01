@@ -161,7 +161,7 @@ public class AppController implements Observer {
      * Afterwards it loads game onto board, creates new gamecontroller and add players to the board.
      * Lastly the View is created.
      * 
-     * @author s23544
+     * @author s235444
      */
     public void loadGame() {
         List<GameInDB> list = RepositoryAccess.getRepository().getGames();

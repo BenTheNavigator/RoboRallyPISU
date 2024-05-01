@@ -312,11 +312,10 @@ public class Board extends Subject {
 
     /**
      * A String representation of information
-     * @return a String that tells information
+     * @return a String that tells information of the board.
      */
     public String getStatusMessage() {
-        return "Phase: " + getPhase() +  "  Player: " + getCurrentPlayer().getName() + "  Checkpoints: " + getCurrentPlayer().getCheckpointCounter()
-                + "  Steps: " + getStep() + "  Moves: " + getCount();
+        return "Phase: " + getPhase() + "  Steps: " + getStep() + "  Moves: " + getCount();
     }
 
     /**
@@ -325,10 +324,18 @@ public class Board extends Subject {
      * @author s235444
      */
     private String winnerStatusMessage() {
-        StringBuilder winnerStatusMessage = new StringBuilder("The winner is " + getCurrentPlayer().getName() + " with " + getCurrentPlayer().getCheckpointCounter() + " checkpoints!\n");
+        Player winner = players.getFirst();
+        for(int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            if(player.getCheckpointCounter() > winner.getCheckpointCounter()) {
+                winner = player;
+            }
+        }
+
+        StringBuilder winnerStatusMessage = new StringBuilder("The winner is " + winner.getName() + " with " + winner.getCheckpointCounter() + " checkpoints!\n");
         int x = getPlayersNumber() - 1;
         while (x >= 0) {
-            if(getPlayer(x).equals(getCurrentPlayer())) {
+            if(getPlayer(x).equals(winner)) {
                 x--;
                 continue;
             }
