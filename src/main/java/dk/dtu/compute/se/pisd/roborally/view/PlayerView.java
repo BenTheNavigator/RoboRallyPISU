@@ -60,6 +60,8 @@ public class PlayerView extends Tab implements ViewObserver {
 
     private VBox playerInteractionPanel;
 
+    private Label statusLabel;
+
     /**
      * The way in which the view communicates with the controller
      */
@@ -68,6 +70,7 @@ public class PlayerView extends Tab implements ViewObserver {
     public PlayerView(@NotNull GameController gameController, @NotNull Player player) {
         super(player.getName());
         this.setStyle("-fx-text-base-color: " + player.getColor() + ";");
+
 
         top = new VBox();
         this.setContent(top);
@@ -88,6 +91,15 @@ public class PlayerView extends Tab implements ViewObserver {
                 programPane.add(programCardViews[i], i, 0);
             }
         }
+
+        /**
+         *Created status label, to show players points.
+         *Added player view to also be observer of Player class, not only Board class.
+         * @author s235444
+         */
+
+        statusLabel = new Label("<no status>");
+
 
         // XXX  the following buttons should actually not be on the tabs of the individual
         //      players, but on the PlayersView (view for all players). This should be
@@ -128,10 +140,14 @@ public class PlayerView extends Tab implements ViewObserver {
         top.getChildren().add(programPane);
         top.getChildren().add(cardsLabel);
         top.getChildren().add(cardsPane);
+        top.getChildren().add(statusLabel);
+
 
         if (player.board != null) {
             player.board.attach(this);
+            player.attach(this);
             update(player.board);
+            update(player);
         }
     }
 
@@ -163,7 +179,8 @@ public class PlayerView extends Tab implements ViewObserver {
                         }
                     }
                 }
-            }
+            } 
+            
 
             if (player.board.getPhase() != Phase.PLAYER_INTERACTION) {
                 if (!programPane.getChildren().contains(buttonPanel)) {
@@ -196,8 +213,8 @@ public class PlayerView extends Tab implements ViewObserver {
                         executeButton.setDisable(true);
                         stepButton.setDisable(true);
                 }
-
-
+                
+                
             } else {
                 if (!programPane.getChildren().contains(playerInteractionPanel)) {
                     programPane.getChildren().remove(buttonPanel);
@@ -237,6 +254,8 @@ public class PlayerView extends Tab implements ViewObserver {
                     }
                 }
             }
+        } else if (subject == player) {
+            statusLabel.setText(player.getName() +" checkpoints: " + player.getCheckpointCounter());
         }
     }
 

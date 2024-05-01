@@ -81,17 +81,25 @@ public class Player extends Subject {
     private int checkpointCounter;
 
     /**
+     * a boolean to distinguish if a player is a winner
+     */
+    private boolean winner;
+
+    /**
      * A constructor for new player
      * @param board the board the player is on
      * @param color the color of the player
      * @param name the name of the player
      * @param checkpointCounter the sum of the checkpoints collected
+     * @param winner boolean if the player is a winner
      */
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;
         this.name = name;
         this.color = color;
         checkpointCounter = 0;
+        winner = false;
+
 
         this.space = null;
 
@@ -114,12 +122,23 @@ public class Player extends Subject {
         return checkpointCounter;
     }
 
+
     /**
      * A setter method for the checkpointCounter
      * @return the new checkpointCounter value
      */
     public void setCheckpointCounter (int checkpointCounter) {
         this.checkpointCounter = checkpointCounter;
+        notifyChange();
+    }
+
+    /**
+     * a setter for the player's winner status
+     * @param player
+     */
+
+    public static void setWinner(Player player) {
+        player.winner = true;
     }
 
 

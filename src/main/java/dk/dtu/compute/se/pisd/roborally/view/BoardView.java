@@ -32,6 +32,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -116,5 +119,23 @@ public class BoardView extends VBox implements ViewObserver {
         }
 
     }
+
+    /**
+     * Method to create a popup message on top of board.
+     * @param message to display
+     * @author s235444
+     */
+    private void displayPopup(String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("There is a winner!!!");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
+
+        alert.showAndWait();
+    }
+
 
 }

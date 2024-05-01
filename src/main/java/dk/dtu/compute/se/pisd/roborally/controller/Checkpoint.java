@@ -32,7 +32,7 @@ public class Checkpoint extends FieldAction {
      * A method to check if player checkpoints are correct and in accordance with checkpoint order. 
      * If they are, then the players checkpointCounter is increased to the checkpointNumber of the Checkpoint.
      * It checks if the final checkpoints has been reached, and if that is the case the phase is changed to winner and the status is updated.
-     * @s235444
+     * @author 235444
      */
 
     public boolean getLastCheckpoint(){
@@ -49,7 +49,6 @@ public class Checkpoint extends FieldAction {
             currentPlayer.setCheckpointCounter(checkpointNumber);
             if (lastCheckpoint) {
                 gameController.board.setPhase(Phase.WINNER);
-                //gameController.board.getStatusMessage();
             }
             return true;
         }

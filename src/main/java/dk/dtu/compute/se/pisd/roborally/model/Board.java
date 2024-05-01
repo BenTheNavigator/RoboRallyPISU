@@ -312,18 +312,41 @@ public class Board extends Subject {
 
     /**
      * A String representation of information
-     * @return a String that tells information
+     * @return a String that tells information of the board.
      */
     public String getStatusMessage() {
-        // this is actually a view aspect, but for making assignment V1 easy for
-        // the students, this method gives a string representation of the current
-        // status of the game
+        return "Phase: " + getPhase() + "  Steps: " + getStep() + "  Moves: " + getCount();
+    }
 
-        // XXX: V1 add the move count to the status message
-        // XXX: V2 changed the status so that it shows the phase, the current player and the number of steps
+    /**
+     * A string builder for the winnerStatusMessage.
+     * @return String of the winner and other player's checkpoints
+     * @author s235444
+     */
+    private String winnerStatusMessage() {
+        Player winner = players.getFirst();
+        for(int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            if(player.getCheckpointCounter() > winner.getCheckpointCounter()) {
+                winner = player;
+            }
+        }
 
-        return "Phase: " + getPhase() +  "  Player: " + getCurrentPlayer().getName() + "  Checkpoints: " + getCurrentPlayer().getCheckpointCounter()
-                + "  Steps: " + getStep() + "  Moves: " + getCount();
+        StringBuilder winnerStatusMessage = new StringBuilder("The winner is " + winner.getName() + " with " + winner.getCheckpointCounter() + " checkpoints!\n");
+        int x = getPlayersNumber() - 1;
+        while (x >= 0) {
+            if(getPlayer(x).equals(winner)) {
+                x--;
+                continue;
+            }
+            winnerStatusMessage.append(getPlayer(x).getName()).append(" : ").append(getPlayer(x).getCheckpointCounter()).append(" checkpoints\n");
+            x--;
+        }
+        return winnerStatusMessage.toString();
+    }
+
+    public String getWinnerStatusMessage() {
+        return winnerStatusMessage();
     }
 
     /**

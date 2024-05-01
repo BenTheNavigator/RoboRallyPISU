@@ -22,6 +22,8 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -183,7 +185,7 @@ public class GameController {
     /**
      * This goes to the next step in the programming phase. From Player1's first program to Player2's first
      * and so forth, before going to Player1's second program. We have in total a max of 5 steps in the game, as
-     * we can only place a maximum of 5 cards.
+     * we can only place a maximum of 5 cards. Winner phase comment.
      */
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
@@ -206,6 +208,13 @@ public class GameController {
 
                     executeFieldActions();
 
+                    if (board.getPhase() != Phase.ACTIVATION) {
+                        if (board.getPhase() == Phase.WINNER) {
+                            displayPopup(board.getWinnerStatusMessage());
+                        }
+                        return;
+                    }
+
                     step++;
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
@@ -220,7 +229,9 @@ public class GameController {
                 assert false;
             }
         } else {
-            // this should not happen
+            if (board.getPhase() == Phase.WINNER) {
+                return;
+            }
             assert false;
         }
     }
@@ -234,6 +245,9 @@ public class GameController {
             Space space = player.getSpace();
             for (FieldAction action: space.getActions()) {
                 action.doAction(this, space);
+                if (board.getPhase() != Phase.ACTIVATION){
+                    break;
+                }
             }
         }
 
@@ -453,5 +467,20 @@ public class GameController {
         // XXX just for now to indicate that the actual method is not yet implemented
         assert false;
     }
+
+
+    private void displayPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("There is a winner!!!");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
+
+        alert.showAndWait();
+    }
+
+
 
 }
