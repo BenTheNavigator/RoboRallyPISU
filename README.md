@@ -1,5 +1,5 @@
 # GuideToStart
-- In your MySQL write: 
+- In your MySQL write the following below and run the commands: 
 - CREATE DATABASE pisd;
 - USE pisd;
 - Execute both.
@@ -12,7 +12,7 @@ src/main/java/dk/dtu/compute/se/pisd/roborally/dal/TemplateDBCredentials.txt
 - Start the program by running StartRoboRally in: 
 src/main/java/dk/dtu/compute/se/pisd/roborally/StartRoboRally
 
-- If the application is to big or small for your screen, you can adjust its size, by changing the following code numbers, in the following path:
+- If the application is too big or small for your screen, you can adjust its size, by changing the following code numbers, in the following path:
 src/main/java/dk/compute/se/pisd/roborally/view/Spaceview
    - final public static int SPACE_HEIGHT = 40; // 60; // 75; line 52
    - final public static int SPACE_WIDTH = 40;  // 60; // 75; line 53
