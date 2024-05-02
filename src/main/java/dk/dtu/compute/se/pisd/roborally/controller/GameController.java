@@ -229,9 +229,6 @@ public class GameController {
                 assert false;
             }
         } else {
-            if (board.getPhase() == Phase.WINNER) {
-                return;
-            }
             assert false;
         }
     }
