@@ -186,7 +186,10 @@ public class GameController {
     /**
      * This goes to the next step in the programming phase. From Player1's first program to Player2's first
      * and so forth, before going to Player1's second program. We have in total a max of 5 steps in the game, as
-     * we can only place a maximum of 5 cards. Winner phase comment.
+     * we can only place a maximum of 5 cards.
+     * It checks if the phase has been changed to WINNER, and if that is the case,
+     * it displays the popup declaring the end of the game and the winner.
+     * @author s235444
      */
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
@@ -457,16 +460,12 @@ public class GameController {
         }
     }
 
+
     /**
-     * A method called when no corresponding controller operation is implemented yet. This
-     * should eventually be removed.
+     * This method displays a popup declaring the winner of the game.
+     * @author s235444
+     * @param message string declaring the winner
      */
-    public void notImplemented() {
-        // XXX just for now to indicate that the actual method is not yet implemented
-        assert false;
-    }
-
-
     private void displayPopup(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("There is a winner!!!");
