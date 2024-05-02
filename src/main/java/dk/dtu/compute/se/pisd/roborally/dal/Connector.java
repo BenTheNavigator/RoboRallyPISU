@@ -30,10 +30,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * 
+ * Connector to database, it gets its credentials to the database from DBCredentials class.
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author s235444
  */
 class Connector {
 	

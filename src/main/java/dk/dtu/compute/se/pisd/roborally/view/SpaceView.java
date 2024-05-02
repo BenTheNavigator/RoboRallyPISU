@@ -114,7 +114,8 @@ public class SpaceView extends StackPane implements ViewObserver {
     /**
      * Method to show actions and walls on the board
      * @param subject
-     * @author s235436 + s235458
+     * @author s235436
+     * @author s235458
      */
     @Override
     public void updateView(Subject subject) {

@@ -313,6 +313,7 @@ public class Board extends Subject {
     /**
      * A String representation of information
      * @return a String that tells information of the board.
+     * @author s235444
      */
     public String getStatusMessage() {
         return "Phase: " + getPhase() + "  Steps: " + getStep() + "  Moves: " + getCount();

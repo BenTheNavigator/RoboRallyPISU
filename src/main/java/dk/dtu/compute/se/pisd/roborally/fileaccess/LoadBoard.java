@@ -41,6 +41,7 @@ import java.util.List;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author s235444
  */
 public class LoadBoard {
 
@@ -113,6 +114,13 @@ public class LoadBoard {
         return result;
     }
 
+    /**
+     *
+     * @param actionTemplate
+     * @return
+     * @author s235436
+     * @author s224572
+     */
     private static FieldAction convert(ActionTemplate actionTemplate) {
         if (actionTemplate instanceof ConveyorBeltTemplate) {
             ConveyorBeltTemplate template = (ConveyorBeltTemplate) actionTemplate;
@@ -139,10 +147,6 @@ public class LoadBoard {
         return null;
     }
 
-    // The following method is not needed for RoboRally; but it would
-    // allow to programmatically generate a board and save it to a
-    // JSON file, if need should be. This might make it easier to
-    // create a first version fof some JSON file of a board.
 
     public static void saveBoard(Board board, String name) {
         BoardTemplate template = convertToTemplate(board);
@@ -156,13 +160,6 @@ public class LoadBoard {
         String filename =
                 classLoader.getResource(BOARDSFOLDER).getPath() + "/" + name + "." + JSON_EXT;
 
-        // In simple cases, we can create a Gson object with new:
-        //
-        //   Gson gson = new Gson();
-        //
-        // But, if you need to configure it, it is better to create it from
-        // a builder (here, we want to configure the JSON serialisation with
-        // a pretty printer):
         GsonBuilder simpleBuilder = new GsonBuilder().
                 registerTypeAdapter(ActionTemplate.class, new Adapter<ActionTemplate>()).
                 setPrettyPrinting();
@@ -223,6 +220,13 @@ public class LoadBoard {
         return result;
     }
 
+    /**
+     *
+     * @param action
+     * @return
+     * @author s235436
+     * @author s224572
+     */
     private static ActionTemplate convertToTemplate(FieldAction action) {
         if (action instanceof ConveyorBelt) {
             ConveyorBelt conveyorBelt = (ConveyorBelt) action;

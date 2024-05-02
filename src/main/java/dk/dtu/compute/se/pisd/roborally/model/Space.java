@@ -121,7 +121,6 @@ public class Space extends Subject {
      *
      * @return the list of field actions on this space
      */
-    // XXX A3
     public List<FieldAction> getActions() {
         return actions;
     }

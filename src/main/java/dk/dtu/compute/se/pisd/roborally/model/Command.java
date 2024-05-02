@@ -45,20 +45,12 @@ public enum Command {
     FAST_FORWARD("Fast Fwd"),
     BACKWARD("Back"),
 
-    // XXX Assignment V3 (step 1)
     OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
 
     /**
      * A method to display name of robots
      */
     final public String displayName;
-
-    // XXX Assignment V3 (step 1)
-    // Command(String displayName) {
-    //     this.displayName = displayName;
-    // }
-    //
-    // replaced by the code below:
 
     /**
      * A method to get options for specific player and the name of the player

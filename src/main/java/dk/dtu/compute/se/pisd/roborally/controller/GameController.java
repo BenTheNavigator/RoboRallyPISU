@@ -51,15 +51,6 @@ public class GameController {
      * @author s235436
      */
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
-        // TODO Assignment V1: method should be implemented by the students:
-        //   - the current player should be moved to the given space
-        //     (if it is free()
-        //   - and the current player should be set to the player
-        //     following the current player
-        //   - the counter of moves in the game should be increased by one
-        //     if and when the player is moved (the counter and the status line
-        //     message needs to be implemented at another place)
-
         Player current = board.getCurrentPlayer();
         current.setSpace(space);
         int playernumber = board.getPlayerNumber(current);
@@ -68,7 +59,6 @@ public class GameController {
         board.setCount(board.getCount()+1);
     }
 
-    // XXX: V2
 
     /**
      * A method that sets the phase to Programming
@@ -95,8 +85,6 @@ public class GameController {
         }
     }
 
-    // XXX: V2
-
     /**
      * A method that generates a new card for programming
      */
@@ -105,8 +93,6 @@ public class GameController {
         int random = (int) (Math.random() * commands.length);
         return new CommandCard(commands[random]);
     }
-
-    // XXX: V2
 
     /**
      * A method that changes the phase to Activation
@@ -119,8 +105,6 @@ public class GameController {
         board.setStep(0);
         board.setCount(board.getCount()+1);
     }
-
-    // XXX: V2
 
     /**
      * A method that makes it possible to touch the programming field
@@ -137,8 +121,6 @@ public class GameController {
         }
     }
 
-    // XXX: V2
-
     /**
      * A method that makes it impossible to use the programming field
      */
@@ -152,7 +134,6 @@ public class GameController {
         }
     }
 
-    // XXX: V2
     /**
     A method that makes the program execute at once
      */
@@ -161,7 +142,6 @@ public class GameController {
         continuePrograms();
     }
 
-    // XXX: V2
     /**
     A method that makes the program execute one step at a time
      */
@@ -169,8 +149,6 @@ public class GameController {
         board.setStepMode(true);
         continuePrograms();
     }
-
-    // XXX: V2
 
     /**
      * The method that follows the previous ones, that actually executes whats been told
@@ -180,8 +158,6 @@ public class GameController {
             executeNextStep();
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
-
-    // XXX: V2
 
     /**
      * This goes to the next step in the programming phase. From Player1's first program to Player2's first
@@ -239,6 +215,7 @@ public class GameController {
 
     /**
      * Method to complete the action of a fieldaction like a conveyorbelt etc.
+     * @author s235436
      */
     private void executeFieldActions() {
         for (int p = 0; p < board.getPlayersNumber(); p++ ) {
@@ -280,7 +257,6 @@ public class GameController {
 
         }
     }
-    // XXX: V2
 
     /**
      * A method that calls the basic movement options
@@ -314,8 +290,6 @@ public class GameController {
             }
         }
     }
-
-    // TODO Assignment V2
 
     /**
      * Method to move forward
@@ -390,8 +364,6 @@ public class GameController {
         }
     }
 
-    // TODO Assignment V2
-
     /**
      * Method to move forwards 2 spaces
      * @param player the player whose turn it is
@@ -403,8 +375,6 @@ public class GameController {
 
     }
 
-    // TODO Assignment V2
-
     /**
      * Method to change heading clockwise
      * @param player the player whose turn it is
@@ -415,8 +385,6 @@ public class GameController {
         Heading nextHeading = heading.next();
         player.setHeading(nextHeading);
     }
-
-    // TODO Assignment V2
 
     /**
      * Method to change heading counterclockwise

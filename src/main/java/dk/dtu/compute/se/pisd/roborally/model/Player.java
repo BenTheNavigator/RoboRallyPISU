@@ -28,9 +28,10 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
 
 /**
  * The class player revolves around the robot and cards, and are specific for each player.
+ * We added aspects for the checkpoints to be saved to the players.
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author s235444
  */
 public class Player extends Subject {
 
@@ -90,8 +91,7 @@ public class Player extends Subject {
      * @param board the board the player is on
      * @param color the color of the player
      * @param name the name of the player
-     * @param checkpointCounter the sum of the checkpoints collected
-     * @param winner boolean if the player is a winner
+     * @author s235444
      */
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;

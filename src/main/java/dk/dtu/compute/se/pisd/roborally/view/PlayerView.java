@@ -67,6 +67,11 @@ public class PlayerView extends Tab implements ViewObserver {
      */
     private GameController gameController;
 
+    /**
+     *Created status label, to show players points.
+     *Added player view to also be observer of Player class, not only Board class.
+     * @author s235444
+     */
     public PlayerView(@NotNull GameController gameController, @NotNull Player player) {
         super(player.getName());
         this.setStyle("-fx-text-base-color: " + player.getColor() + ";");
@@ -154,6 +159,8 @@ public class PlayerView extends Tab implements ViewObserver {
     /**
      * A huge method that updates the UI
      * @param subject
+     * @author s235444
+     * @author s235436
      */
     @Override
     public void updateView(Subject subject) {
@@ -223,22 +230,6 @@ public class PlayerView extends Tab implements ViewObserver {
                 playerInteractionPanel.getChildren().clear();
 
                 if (player.board.getCurrentPlayer() == player) {
-                    // TODO Assignment V3: these buttons should be shown only when there is
-                    //      an interactive command card, and the buttons should represent
-                    //      the player's choices of the interactive command card. The
-                    //      following is just a mockup showing two options
-
-                    /*
-                    Button optionButton = new Button("Option1");
-                    optionButton.setOnAction( e -> gameController.notImplemented());
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);
-
-                    optionButton = new Button("Option 2");
-                    optionButton.setOnAction( e -> gameController.notImplemented());
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);
-                     */
 
                     CommandCardField field = player.getProgramField(player.board.getStep());
                     if (field !=null){

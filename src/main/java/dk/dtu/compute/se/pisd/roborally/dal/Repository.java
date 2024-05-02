@@ -33,7 +33,8 @@ import java.util.List;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author s235436
+ * @author s204176
  */
 class Repository implements IRepository {
 	
@@ -121,7 +122,6 @@ class Repository implements IRepository {
 				// statement.close();
 
 				createPlayersInDB(game);
-				//TODO V4a: this method needs to be implemented first
 				createCardFieldsInDB(game);
 
 
@@ -187,7 +187,6 @@ class Repository implements IRepository {
 			rs.close();
 
 			updatePlayersInDB(game);
-			//TODO V4a: this method needs to be implemented first
 			updateCardFieldsInDB(game);
 
 

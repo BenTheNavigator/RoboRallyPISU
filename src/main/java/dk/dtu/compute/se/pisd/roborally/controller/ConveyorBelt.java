@@ -32,7 +32,6 @@ import org.jetbrains.annotations.NotNull;
  * @author Ekkart Kindler, ekki@dtu.dk
  * @author s235436
  */
-// XXX A3
 public class ConveyorBelt extends FieldAction {
 
     /**
@@ -62,8 +61,6 @@ public class ConveyorBelt extends FieldAction {
      */
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
-        // TODO A3: needs to be implemented
-        // ...
         Player player = space.getPlayer();
         Heading heading = getHeading();
         try {

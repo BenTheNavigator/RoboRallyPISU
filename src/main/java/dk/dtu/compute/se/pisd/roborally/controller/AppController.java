@@ -90,26 +90,24 @@ public class AppController implements Observer {
      */
 
 
-    //IRepository repository = RepositoryAccess.getRepository();
-
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
 
     /**
-     * A method to create new game
+     * A method to create new game.
+     * Displays different board options, player can choose from.
+     * Changed board to load from LoadBoard, then we can load from JSON files.
+     * The code makes it possible to have multiple boards, which players can choose from.
+     * @author s235444
+     * @author s235458
+     * @author Ekkart Kindler, ekki@dtu.dk
      */
     public void newGame() {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
         dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
-
-        /**
-         * Displays different board options, player can choose from.
-         * @author s235444
-         * @author s235458
-         */
 
         ChoiceDialog<String> dialog2 = new ChoiceDialog<>(BOARD_CHOICES.get(0), BOARD_CHOICES);
         dialog2.setTitle("Board options");
@@ -125,12 +123,6 @@ public class AppController implements Observer {
                 }
             }
 
-            /** 
-             * Changed board to load from LoadBoard, then we can load from JSON files.
-             * The code makes it possible to have multiple boards, which players can choose from.
-             * @author s235444
-             * @author s235458
-            */
             Board board = LoadBoard.loadBoard(result2.get());
 
             gameController = new GameController(board);
@@ -141,8 +133,6 @@ public class AppController implements Observer {
                 player.setSpace(board.getSpace(i % board.width, i));
             }
 
-            // XXX: V2
-            // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
             RepositoryAccess.getRepository().createGameInDB(board, result2.get());
 
@@ -152,6 +142,7 @@ public class AppController implements Observer {
 
     /**
      * Here we save the game in the database with a game ID. This can be used to load into it later.
+     * @author s235444
      */
     public void saveGame() {
         RepositoryAccess.getRepository().updateGameInDB(gameController.board);

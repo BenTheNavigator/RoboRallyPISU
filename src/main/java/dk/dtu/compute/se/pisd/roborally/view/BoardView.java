@@ -41,7 +41,7 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author s235444
  */
 public class BoardView extends VBox implements ViewObserver {
 
@@ -119,23 +119,5 @@ public class BoardView extends VBox implements ViewObserver {
         }
 
     }
-
-    /**
-     * Method to create a popup message on top of board.
-     * @param message to display
-     * @author s235444
-     */
-    private void displayPopup(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("There is a winner!!!");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.setAlwaysOnTop(true);
-
-        alert.showAndWait();
-    }
-
 
 }

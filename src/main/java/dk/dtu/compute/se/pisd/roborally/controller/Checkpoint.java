@@ -6,7 +6,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 /**
  * A space on the board that serves as the goal. Obtaining the last checkpoint gives the player the win.
- *
+ * @author s235444
+ * @author s235436
  */
 public class Checkpoint extends FieldAction {
     private int checkpointNumber;
@@ -26,7 +27,6 @@ public class Checkpoint extends FieldAction {
      * @param checkpointNumber is the int value of the checkpointNumber you wish to set.
      * @author s235444
      */
-
     public void setCheckpointNumber (int checkpointNumber) {
         this.checkpointNumber = checkpointNumber;
     }
@@ -37,7 +37,6 @@ public class Checkpoint extends FieldAction {
      * It checks if the final checkpoints has been reached, and if that is the case the phase is changed to winner and the status is updated.
      * @author 235444
      */
-
     public boolean getLastCheckpoint(){
         return lastCheckpoint;
     }
