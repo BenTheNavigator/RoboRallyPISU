@@ -333,7 +333,7 @@ public class GameController {
         Player other = space.getPlayer();
         if (other != null){
             Space target = board.getNeighbour(space, heading);
-            if (target != null) {
+            if (target != null && !target.getWalls().contains(heading.next().next()) && !space.getWalls().contains(heading)) {
                 // XXX Note that there might be additional problems with
                 //     infinite recursion here (in some special cases)!
                 //     We will come back to that!
