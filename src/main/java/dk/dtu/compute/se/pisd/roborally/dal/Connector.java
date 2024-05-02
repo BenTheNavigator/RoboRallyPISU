@@ -89,11 +89,15 @@ class Connector {
     		// TODO error handling
     		try {
 				connection.rollback();
-			} catch (SQLException e1) {}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
     	} finally {
 			try {
 				connection.setAutoCommit(true);
-			} catch (SQLException e) {}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
     }
     

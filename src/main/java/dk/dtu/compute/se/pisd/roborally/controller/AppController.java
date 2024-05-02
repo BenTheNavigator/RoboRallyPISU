@@ -26,7 +26,6 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.dal.GameInDB;
-import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
@@ -69,7 +68,6 @@ public class AppController implements Observer {
 
     /**
      * A list of the board options players can choose from
-     * @author s235444
      */
     final private List<String> BOARD_CHOICES = Arrays.asList("defaultboard", "poseidon", "roboloco");
 
@@ -104,12 +102,12 @@ public class AppController implements Observer {
      * @author Ekkart Kindler, ekki@dtu.dk
      */
     public void newGame() {
-        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
+        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.getFirst(), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
         dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
-        ChoiceDialog<String> dialog2 = new ChoiceDialog<>(BOARD_CHOICES.get(0), BOARD_CHOICES);
+        ChoiceDialog<String> dialog2 = new ChoiceDialog<>(BOARD_CHOICES.getFirst(), BOARD_CHOICES);
         dialog2.setTitle("Board options");
         dialog2.setHeaderText("Select a board");
         Optional<String> result2 = dialog2.showAndWait();
@@ -125,6 +123,7 @@ public class AppController implements Observer {
 
             Board board = LoadBoard.loadBoard(result2.get());
 
+            assert board != null;
             gameController = new GameController(board);
             int no = result.get();
             for (int i = 0; i < no; i++) {
@@ -159,7 +158,7 @@ public class AppController implements Observer {
     public void loadGame() {
         List<GameInDB> list = RepositoryAccess.getRepository().getGames();
         Collections.reverse(list);
-        ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(list.get(0), list);
+        ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(list.getFirst(), list);
         dialog.setTitle("Load Game");
         dialog.setHeaderText("Select save to load");
         Optional<GameInDB> result = dialog.showAndWait();
@@ -210,7 +209,7 @@ public class AppController implements Observer {
             alert.setContentText("Are you sure you want to exit RoboRally?");
             Optional<ButtonType> result = alert.showAndWait();
 
-            if (!result.isPresent() || result.get() != ButtonType.OK) {
+            if (result.isEmpty() || result.get() != ButtonType.OK) {
                 return; // return without exiting the application
             }
         }

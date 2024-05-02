@@ -233,7 +233,7 @@ public class GameController {
 
     /**
      * A method used when the player has a choice that executes the choice
-     * @param option
+     * @param option what the card does (here only turn left or right)
      */
     public void executeCommandOptionAndContinue(@NotNull Command option) {
         Player currentPlayer = board.getCurrentPlayer();
@@ -414,7 +414,7 @@ public class GameController {
      * A method to move the card from the hand to the field
      * @param source the card in the hand
      * @param target the open spot in the field
-     * @return
+     * @return true or false depending on if it works
      */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();

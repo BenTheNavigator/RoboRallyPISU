@@ -5,8 +5,6 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
-import java.text.Format;
-
 /**
  * A fieldaction that rotates the player standing on top
  * @author s235436
@@ -15,7 +13,7 @@ import java.text.Format;
 public class Rotator extends FieldAction {
 
     /**
-     * An int value that determines if the rotation is counter clockwise (1) or clockwise(2)
+     * An int value that determines if the rotation is counterclockwise (1) or clockwise(2)
      */
     private int rotation;
 
