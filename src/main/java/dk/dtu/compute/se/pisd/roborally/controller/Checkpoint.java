@@ -4,7 +4,10 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
-
+/**
+ * A space on the board that serves as the goal. Obtaining the last checkpoint gives the player the win.
+ *
+ */
 public class Checkpoint extends FieldAction {
     private int checkpointNumber;
 

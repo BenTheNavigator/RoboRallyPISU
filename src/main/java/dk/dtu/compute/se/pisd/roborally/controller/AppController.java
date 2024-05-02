@@ -51,6 +51,8 @@ import java.util.Optional;
  *
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author s235444
+ * @author s235458
  *
  */
 public class AppController implements Observer {
