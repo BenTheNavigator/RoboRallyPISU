@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS Game (
 
   phase tinyint,
   step tinyint,
+  move tinyint,
   currentPlayer tinyint NULL,
   boardName varchar(255),
   

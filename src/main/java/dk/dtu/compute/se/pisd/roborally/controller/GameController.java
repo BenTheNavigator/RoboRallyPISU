@@ -282,7 +282,7 @@ public class GameController {
     /**
      * A method that calls the basic movement options
      * @param player the player whose turn it is
-     * @param command
+     * @param command the card type. Does it move forward or turn right etc.
      */
     private void executeCommand(@NotNull Player player, Command command) {
         if (player != null && player.board == board && command != null) {

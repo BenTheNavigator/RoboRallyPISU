@@ -30,21 +30,19 @@ import org.jetbrains.annotations.NotNull;
  * This class represents a conveyor belt on a space.
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author s235436
  */
 // XXX A3
 public class ConveyorBelt extends FieldAction {
 
     /**
      * The direction that the conveyorbelt pushes the player
-     * @author s235436
      */
     private Heading heading;
 
     /**
      * A method to get the heading
      * @return the direction, that the conveyor belt pushes the player
-     * @author s235436
      */
     public Heading getHeading() {
         return heading;
@@ -53,7 +51,6 @@ public class ConveyorBelt extends FieldAction {
     /**
      * A method to set the heading
      * @param heading the new direction the conveyorbelt pushes the player
-     * @author s235436
      */
     public void setHeading(Heading heading) {
         this.heading = heading;
