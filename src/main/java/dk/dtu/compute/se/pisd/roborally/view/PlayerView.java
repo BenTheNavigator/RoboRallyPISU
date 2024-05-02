@@ -71,6 +71,7 @@ public class PlayerView extends Tab implements ViewObserver {
      *Created status label, to show players points.
      *Added player view to also be observer of Player class, not only Board class.
      * @author s235444
+     * @author s204176
      */
     public PlayerView(@NotNull GameController gameController, @NotNull Player player) {
         super(player.getName());
